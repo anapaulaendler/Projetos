@@ -7,15 +7,9 @@ namespace ProjetoController.Controllers;
 [Route("api/produtos/")]
 public class ProdutoController : ControllerBase
 {
-    private static List<Produto> _produtos = new List<Produto>
-    {
-        new Produto { Id = 1, Nome = "Laptop", Preco = 1000.00m, Categoria = "Eletronicos" },
-        new Produto { Id = 2, Nome = "Desktop", Preco = 2000.00m, Categoria = "Eletronicos" },
-        new Produto { Id = 3, Nome = "Mobile", Preco = 3000.00m, Categoria = "Eletronicos" },
-    };
 
-    private readonly AppDbContext _ctx;
-    public ProdutoController(AppDbContext ctx)
+    private readonly AppDataContext _ctx;
+    public ProdutoController(AppDataContext ctx)
     {
         _ctx = ctx;
     }
