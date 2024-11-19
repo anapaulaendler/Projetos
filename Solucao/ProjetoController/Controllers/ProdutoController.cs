@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace ProjetoController.Controllers;
 
 [ApiController]
@@ -13,19 +14,24 @@ public class ProdutoController : ControllerBase
         new Produto { Id = 3, Nome = "Mobile", Preco = 3000.00m, Categoria = "Eletronicos" },
     };
 
+    private readonly AppDbContext _ctx;
+    public ProdutoController(AppDbContext ctx)
+    {
+        _ctx = ctx;
+    }
 
     // listar
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> GetProdutos()
     {
-        return _produtos;
+        return _ctx.Produtos.ToList();
     }
 
     // buscar
     [HttpGet("{id}")]
     public ActionResult<Produto> GetProduto(int id)
     {
-        var produto = _produtos.FirstOrDefault(p => p.Id == id);
+        var produto = _ctx.Produtos.FirstOrDefault(p => p.Id == id);
         if (produto is null)
         {
             return NotFound();
@@ -37,7 +43,7 @@ public class ProdutoController : ControllerBase
     [HttpPost]
     public ActionResult<Produto> PostProduto(Produto produto)
     {
-        _produtos.Add(produto);
+        _ctx.Produtos.Add(produto);
         return CreatedAtAction(nameof(GetProduto), new {id = produto.Id}, produto);
     }
 
@@ -50,7 +56,7 @@ public class ProdutoController : ControllerBase
             return BadRequest();
         }
 
-        var produto = _produtos.FirstOrDefault(p => p.Id == id);
+        var produto = _ctx.Produtos.FirstOrDefault(p => p.Id == id);
         if (produto is null)
         {
             return NotFound();
@@ -59,6 +65,7 @@ public class ProdutoController : ControllerBase
         produto.Nome = produtoAlterado.Nome;
         produto.Categoria = produtoAlterado.Categoria;
         produto.Preco = produtoAlterado.Preco;
+        _ctx.Update(produto);
 
         return NoContent();
     }
@@ -67,13 +74,13 @@ public class ProdutoController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteProduto(int id)
     {
-        var produto = _produtos.FirstOrDefault(p => p.Id == id);
+        var produto = _ctx.Produtos.FirstOrDefault(p => p.Id == id);
         if (produto is null)
         {
             return NotFound();
         }
 
-        _produtos.Remove(produto);
+        _ctx.Produtos.Remove(produto);
         return NoContent();  
     }
 }
