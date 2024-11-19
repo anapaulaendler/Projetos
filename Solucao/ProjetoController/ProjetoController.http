@@ -1,0 +1,21 @@
+@ProjetoController_HostAddress = http://localhost:5013/api/produtos
+
+### Listar
+GET {{ProjetoController_HostAddress}}
+Accept: application/json
+
+### Buscar
+GET {{ProjetoController_HostAddress}}/1
+
+### Cadastrar
+POST {{ProjetoController_HostAddress}}
+Content-Type: application/json
+
+{
+    "Nome": "Garrafa de Água",
+    "Preco" : 8.00,
+    "Categoria": "Bebidas"
+}
+
+### Deletar
+DELETE {{ProjetoController_HostAddress}}/0
