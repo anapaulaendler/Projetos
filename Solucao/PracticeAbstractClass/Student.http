@@ -1,0 +1,82 @@
+@PracticeAbstractClass_HostAddress = http://localhost:5246
+@id = ae1f8e5d-d2d3-4ce6-8c34-d56e92d2c0c8
+
+### CREATE (single)
+POST {{PracticeAbstractClass_HostAddress}}/api/student/single
+Content-Type: application/json
+
+{
+    "Name": "Badabó",
+    "Age": 300,
+    "Major": "Software Engineering"
+}
+
+### CREATE (bulk)
+POST {{PracticeAbstractClass_HostAddress}}/api/student/bulk
+Content-Type: application/json
+
+[
+    {
+        "name": "José Arcadio Buendía",
+        "age": 50,
+        "major": "Philosophy"
+    },
+    {
+        "name": "Úrsula Iguarán",
+        "age": 60,
+        "major": "Business Administration"
+    },
+    {
+        "name": "Aureliano Buendía",
+        "age": 25,
+        "major": "Political Science"
+    },
+    {
+        "name": "Amaranta Buendía",
+        "age": 22,
+        "major": "Literature"
+    },
+    {
+        "name": "Rebeca Buendía",
+        "age": 20,
+        "major": "Fine Arts"
+    },
+    {
+        "name": "José Arcadio Segundo",
+        "age": 30,
+        "major": "Agricultural Studies"
+    },
+    {
+        "name": "Fernanda del Carpio",
+        "age": 28,
+        "major": "Theology"
+    },
+    {
+        "name": "Remedios the Beauty",
+        "age": 18,
+        "major": "Fashion Design"
+    },
+    {
+        "name": "Pilar Ternera",
+        "age": 35,
+        "major": "Psychology"
+    },
+    {
+        "name": "Mauricio Babilonia",
+        "age": 27,
+        "major": "Engineering"
+    }
+]
+
+### READ
+GET {{PracticeAbstractClass_HostAddress}}/api/student
+
+### SEARCH
+GET {{PracticeAbstractClass_HostAddress}}/api/student/{{id}}
+
+### UPDATE
+PUT {{PracticeAbstractClass_HostAddress}}/api/student/{{id}}
+Content-Type: application/json
+
+### DELETE
+DELETE {{PracticeAbstractClass_HostAddress}}/api/student/{{id}}

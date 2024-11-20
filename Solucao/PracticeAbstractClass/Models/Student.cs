@@ -10,8 +10,8 @@ public class Student : Person
         Major = major;
     }
 
-    public override void ExibirDetalhes()
+    public override string ExibirDetalhes()
     {
-        Console.WriteLine($"Student: {Name}, Age: {Age}, Major: {Major}");
+        return $"Student: {Name}, Age: {Age}, Major: {Major}";
     }
 }

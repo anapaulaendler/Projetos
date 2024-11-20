@@ -1,0 +1,88 @@
+@PracticeAbstractClass_HostAddress = http://localhost:5246
+@id = 35f81bd6-bcf0-4cac-8205-d81873d7f7cd
+
+### CREATE (single)
+POST {{PracticeAbstractClass_HostAddress}}/api/professor/single
+Content-Type: application/json
+
+{
+    "Name": "Snoopy",
+    "Age": 50,
+    "Course": "Software Engineering"
+}
+
+### CREATE (bulk)
+POST {{PracticeAbstractClass_HostAddress}}/api/professor/bulk
+Content-Type: application/json
+
+[
+    {
+        "Name": "Heathcliff",
+        "Age": 40,
+        "Course": "Psychology"
+    },
+    {
+        "Name": "Catherine Earnshaw",
+        "Age": 35,
+        "Course": "Literature"
+    },
+    {
+        "Name": "Edgar Linton",
+        "Age": 38,
+        "Course": "Political Science"
+    },
+    {
+        "Name": "Isabella Linton",
+        "Age": 34,
+        "Course": "History"
+    },
+    {
+        "Name": "Hindley Earnshaw",
+        "Age": 36,
+        "Course": "Economics"
+    },
+    {
+        "Name": "Nelly Dean",
+        "Age": 45,
+        "Course": "Sociology"
+    },
+    {
+        "Name": "Linton Heathcliff",
+        "Age": 30,
+        "Course": "Philosophy"
+    },
+    {
+        "Name": "Joseph",
+        "Age": 65,
+        "Course": "Theology"
+    },
+    {
+        "Name": "Zillah",
+        "Age": 50,
+        "Course": "Anthropology"
+    },
+    {
+        "Name": "Frances Earnshaw",
+        "Age": 33,
+        "Course": "Fine Arts"
+    }
+]
+
+### READ
+GET {{PracticeAbstractClass_HostAddress}}/api/professor
+
+### SEARCH
+GET {{PracticeAbstractClass_HostAddress}}/api/professor/{{id}}
+
+### UPDATE
+PUT {{PracticeAbstractClass_HostAddress}}/api/professor/{{id}}
+Content-Type: application/json
+
+{
+    "Name": "Snoopy",
+    "Age": 30,
+    "Course": "Data Structures"
+}
+
+### DELETE
+DELETE {{PracticeAbstractClass_HostAddress}}/api/professor/{{id}}

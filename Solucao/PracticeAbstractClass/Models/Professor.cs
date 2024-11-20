@@ -10,8 +10,8 @@ public class Professor : Person
         Course = course;
     }
 
-    public override void ExibirDetalhes()
+    public override string ExibirDetalhes()
     {
-        Console.WriteLine($"Professor: {Name}, Age: {Age}, Course: {Course}");
+        return $"Professor: {Name}, Age: {Age}, Course: {Course}";
     }
 }

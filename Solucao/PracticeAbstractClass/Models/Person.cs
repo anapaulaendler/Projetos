@@ -12,5 +12,5 @@ public abstract class Person
         Age = age;
     }
 
-    public abstract void ExibirDetalhes();
+    public abstract string ExibirDetalhes();
 }
