@@ -18,6 +18,10 @@ public class ProdutoController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> GetProdutos()
     {
+        if (_ctx.Produtos is null)
+        {
+            return NotFound();
+        }
         return _ctx.Produtos.ToList();
     }
 
@@ -38,6 +42,7 @@ public class ProdutoController : ControllerBase
     public ActionResult<Produto> PostProduto(Produto produto)
     {
         _ctx.Produtos.Add(produto);
+        _ctx.SaveChanges();
         return CreatedAtAction(nameof(GetProduto), new {id = produto.Id}, produto);
     }
 
@@ -60,6 +65,7 @@ public class ProdutoController : ControllerBase
         produto.Categoria = produtoAlterado.Categoria;
         produto.Preco = produtoAlterado.Preco;
         _ctx.Update(produto);
+        _ctx.SaveChanges();
 
         return NoContent();
     }

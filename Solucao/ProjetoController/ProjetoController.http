@@ -12,10 +12,10 @@ POST {{ProjetoController_HostAddress}}
 Content-Type: application/json
 
 {
-    "Nome": "Garrafa de Água",
+    "Nome": "Park Sohyun",
     "Preco" : 8.00,
     "Categoria": "Bebidas"
 }
 
 ### Deletar
-DELETE {{ProjetoController_HostAddress}}/0
+DELETE {{ProjetoController_HostAddress}}/3
