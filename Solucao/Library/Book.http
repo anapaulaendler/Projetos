@@ -1,0 +1,73 @@
+@Library_HostAddress = http://localhost:5269/api/book
+@id = 5
+@idM = 96626e46-7fae-481d-912b-55edd1fe3486
+
+### POST SINGLE
+POST {{Library_HostAddress}}/single
+Content-Type: application/json
+
+{
+    "Title": "Wuthering Heights",
+    "YearPublished": 1818,
+    "Author": "Emily Brontë",
+    "Genre": "Romance"
+}
+
+### POST BULK
+POST {{Library_HostAddress}}/bulk
+Content-Type: application/json
+
+[
+    {
+    "Title": "Rosemary's Baby",
+    "YearPublished": 1915,
+    "Author": "Evandro Zatti",
+    "Genre": "Horror"
+    },
+    {
+    "Title": "Casa das Folhas",
+    "YearPublished": 1988,
+    "Author": "Cassenote",
+    "Genre": "Horror"
+    },
+    {
+    "Title": "Layla and Majnun",
+    "YearPublished": 20,
+    "Author": "Gerard Way",
+    "Genre": "Romance"
+    }
+]
+
+### GET BOOKS
+GET {{Library_HostAddress}}
+
+### SEARCH
+GET {{Library_HostAddress}}/{{id}}
+Accept-Encoding: *
+
+### SEARCH STRING: FIX IT
+GET {{Library_HostAddress}}/search/WU
+Accept-Encoding: *
+
+### UPDATE
+PUT {{Library_HostAddress}}/update/{{id}}
+Content-Type: application/json
+
+{
+    "Title": "Wuthering Heights",
+    "YearPublished": 2005,
+    "Author": "Emily Brontë",
+    "Genre": "Romance"
+}
+
+### DELETE
+DELETE {{Library_HostAddress}}/{{id}}
+
+### BORROW BOOK
+PUT {{Library_HostAddress}}/borrow/{{id}}/{{idM}}
+
+### IS BOOK BORROWED
+GET {{Library_HostAddress}}/borrowed/{{id}}
+
+### RETURN BOOK
+PUT {{Library_HostAddress}}/return/{{id}}/2024-11-21

@@ -1,0 +1,76 @@
+@Library_HostAddress = http://localhost:5269/api/member
+@id = 96626e46-7fae-481d-912b-55edd1fe3486
+
+### POST SINGLE
+POST {{Library_HostAddress}}/single
+Content-Type: application/json
+
+{
+    "Name": "Badabó",
+    "Email": "badabo@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Valid adress, 999"
+}
+
+### POST BULK
+POST {{Library_HostAddress}}/bulk
+Content-Type: application/json
+
+[
+    {
+    "Name": "Enzo",
+    "Email": "enzo@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Argentina, 999"
+    },
+    {
+    "Name": "Ana",
+    "Email": "ana@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Vila Macondo, 999"
+    },
+    {
+    "Name": "Lohanna",
+    "Email": "lohanna@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Curitiba, 999"
+    },
+    {
+    "Name": "Pedro",
+    "Email": "pedro@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Valid adress, 999"
+    },
+    {
+    "Name": "Cauê",
+    "Email": "caue@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Valid adress, 999"
+    },
+    {
+    "Name": "Eduardo",
+    "Email": "edu@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Valid adress, 999"
+    }
+]
+
+### GET 
+GET {{Library_HostAddress}}
+
+### SEARCH
+GET {{Library_HostAddress}}/{{id}}
+
+### UPDATE
+PUT {{Library_HostAddress}}/{{id}}
+Content-Type: application/json
+
+{
+    "Name": "Badabó Sottomaior",
+    "Email": "badabosottomaior@gmail.com",
+    "PhoneNumber": "99999999999",
+    "Adress": "Valid adress, 999"
+}
+
+### DELETE
+DELETE {{Library_HostAddress}}/{{id}}

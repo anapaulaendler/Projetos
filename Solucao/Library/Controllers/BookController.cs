@@ -13,7 +13,6 @@ public class BookController : ControllerBase
         _ctx = ctx;
     } 
 
-
     [HttpPost("single")]
     public ActionResult<Book> PostBook(Book book)
     {
@@ -38,11 +37,13 @@ public class BookController : ControllerBase
         return _ctx.Books.ToList();
     }
 
-    [HttpGet("search")]
-    public IActionResult GetBookByName(string name)
+    [HttpGet("search/{name}")]
+    public ActionResult<IEnumerable<string>> GetBookByName(string name)
     {
         var books = _ctx.Books
             .Where(b => b.Title.Contains(name))
+            .ToList()
+            .Select(x => x.DisplayInfo())
             .ToList();
         
         if (books is null)
@@ -50,10 +51,24 @@ public class BookController : ControllerBase
             return NotFound();
         }
 
-        return Ok(books);
+        return books;
     }
 
-    [HttpPut("update/({id})")]
+    [HttpGet("{id}")]
+    public ActionResult<string> GetBookById(int id)
+    {
+        Book? b = _ctx.Books
+            .FirstOrDefault(b => b.Id == id);
+        
+        if (b is null)
+        {
+            return NotFound();
+        }
+
+        return b.DisplayInfo();
+    }
+
+    [HttpPut("update/{id}")]
     public ActionResult<Book> UpdateBook(Book updatedBook, int id)
     {
         var book = _ctx.Books.FirstOrDefault(b => b.Id == id);
@@ -73,8 +88,21 @@ public class BookController : ControllerBase
         return Ok(book);
     }
 
-    [HttpPut("borrow/({idB})/({idM})")]
-    public ActionResult<Book> BorrowBook(Book book, int idB, Guid idM)
+    // [HttpGet("/borrowed/{id}")]
+    // public ActionResult<string> IsBookBorrowed(int id)
+    // {
+    //     var book = _ctx.Books.FirstOrDefault(b => b.Id == id);
+
+    //     if (book is null)
+    //     {
+    //         return NotFound("Book is not borrowed.");
+    //     }
+
+    //     return book.IsBookBorrowed();        
+    // }
+
+    [HttpPut("borrow/{idB}/{idM}")]
+    public ActionResult<Book> BorrowBook([FromRoute] int idB, [FromRoute] Guid idM)
     {
         var b = _ctx.Books.FirstOrDefault(b => b.Id == idB);
 
@@ -94,9 +122,43 @@ public class BookController : ControllerBase
 
         b.Borrow(member, d);
 
-        _ctx.Update(b);
+        _ctx.Books.Update(b);
         _ctx.SaveChanges();
 
         return Ok($"Book {b.Title} was borrowed by {member.Name} on {d.ToShortDateString()}.");
+    }
+
+    [HttpPut("return/{idB}/{returnDate}")]
+    public ActionResult<Book> ReturnBook(int idB, DateTime returnDate)
+    {
+        var b = _ctx.Books.FirstOrDefault(b => b.Id == idB);
+
+        if (b is null)
+        {
+            return NotFound("Book not found.");
+        }
+
+        b.Return(returnDate);
+
+        _ctx.Books.Update(b);
+        _ctx.SaveChanges();
+
+        return Ok();    
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteBook(int id)
+    {
+        var b = _ctx.Books.FirstOrDefault(b => b.Id == id);
+
+        if (b is null)
+        {
+            return NotFound("Book not found.");
+        }
+
+        _ctx.Books.Remove(b);
+        _ctx.SaveChanges();
+
+        return NoContent();
     }
 }

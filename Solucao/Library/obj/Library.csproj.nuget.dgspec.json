@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\Library\\Library.csproj": {}
+    "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\Library\\Library.csproj": {
+    "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\Library\\Library.csproj",
+        "projectUniqueName": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
         "projectName": "Library",
-        "projectPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\Library\\Library.csproj",
-        "packagesPath": "C:\\Users\\Usuário\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\Library\\obj\\",
+        "projectPath": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
+        "packagesPath": "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuário\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Dev-Headsoft\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"

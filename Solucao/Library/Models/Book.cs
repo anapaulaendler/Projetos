@@ -6,11 +6,16 @@ public class Book : Item, IBorrowable
 {
     public required string Author { get; set; }
     public required string Genre { get; set; }
-    public bool IsBorrowed { get; set; }
+    public bool IsBorrowed { get; private set; }
     public string BorrowedStatus => IsBorrowed ? "Yes" : "No";
     private Member? BorrowedBy {get; set; }
     private DateTime? BorrowDate { get; set; }
     private DateTime? ReturnDate { get; set; }
+
+    public override string DisplayInfo()
+    {
+        return $"Id: {Id}, Title: {Title}, Year Published: {YearPublished}, Author: {Author}, Genre: {Genre}, Borrowed: {BorrowedStatus}";
+    }
 
     public void Borrow(Member member, DateTime borrowDate)
     {
@@ -28,11 +33,10 @@ public class Book : Item, IBorrowable
         Console.WriteLine($"Book '{Title}' borrowed by {member.Name} on {borrowDate.ToShortDateString()}.");
     }
 
-    public override void DisplayInfo()
-    {
-        Console.WriteLine($"Id: {Id}, Title: {Title}, Year Published: {YearPublished}, Author: {Author}, Genre: {Genre}, Borrowed: {BorrowedStatus}");
-    }
-
+    // public string IsBookBorrowed()
+    // {
+    //     return $"Book {Title} is borrowed by {BorrowedBy} and its return date is {ReturnDate}.";
+    // }
     public void Return(DateTime returnDate)
     {
         if (!IsBorrowed)
