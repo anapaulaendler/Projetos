@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241121191155_UpdateReturnBook")]
+    partial class UpdateReturnBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -26,21 +29,12 @@ namespace Library.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("BorrowDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("BorrowedById")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsBorrowed")
                         .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("ReturnDate")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -50,8 +44,6 @@ namespace Library.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BorrowedById");
 
                     b.ToTable("Books");
                 });
@@ -132,15 +124,6 @@ namespace Library.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("Library.Models.Book", b =>
-                {
-                    b.HasOne("Library.Models.Member", "BorrowedBy")
-                        .WithMany()
-                        .HasForeignKey("BorrowedById");
-
-                    b.Navigation("BorrowedBy");
                 });
 #pragma warning restore 612, 618
         }

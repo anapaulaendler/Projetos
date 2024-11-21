@@ -66,8 +66,8 @@ DELETE {{Library_HostAddress}}/{{id}}
 ### BORROW BOOK
 PUT {{Library_HostAddress}}/borrow/{{id}}/{{idM}}
 
-### IS BOOK BORROWED
-GET {{Library_HostAddress}}/borrowed/{{id}}
-
 ### RETURN BOOK
-PUT {{Library_HostAddress}}/return/{{id}}/2024-11-21
+PUT {{Library_HostAddress}}/return/{{id}}/2024-12-21
+
+### BORROWED BOOKS
+GET {{Library_HostAddress}}/report/borrowed

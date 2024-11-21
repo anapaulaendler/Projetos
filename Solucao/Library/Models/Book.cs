@@ -8,9 +8,9 @@ public class Book : Item, IBorrowable
     public required string Genre { get; set; }
     public bool IsBorrowed { get; private set; }
     public string BorrowedStatus => IsBorrowed ? "Yes" : "No";
-    private Member? BorrowedBy {get; set; }
-    private DateTime? BorrowDate { get; set; }
-    private DateTime? ReturnDate { get; set; }
+    public Member? BorrowedBy { get; private set; }
+    public DateTime? BorrowDate { get; private set; }
+    public DateTime? ReturnDate { get; private set; }
 
     public override string DisplayInfo()
     {
@@ -30,13 +30,9 @@ public class Book : Item, IBorrowable
         ReturnDate = BorrowDate?.AddDays(14);
         IsBorrowed = true;
 
-        Console.WriteLine($"Book '{Title}' borrowed by {member.Name} on {borrowDate.ToShortDateString()}.");
+        Console.WriteLine($"Book '{Title}' borrowed by {member.Name} on {borrowDate.ToShortDateString()}. Return it until {ReturnDate?.ToShortDateString()}");
     }
 
-    // public string IsBookBorrowed()
-    // {
-    //     return $"Book {Title} is borrowed by {BorrowedBy} and its return date is {ReturnDate}.";
-    // }
     public void Return(DateTime returnDate)
     {
         if (!IsBorrowed)
@@ -45,14 +41,18 @@ public class Book : Item, IBorrowable
             return;
         }
 
-    if (ReturnDate.HasValue && returnDate > ReturnDate.Value)
-    {
+        if(ReturnDate is null) return;
 
-        int overdueDays = (returnDate - ReturnDate.Value).Days;
-        BorrowedBy!.Fine += overdueDays * 3;
+        int r = DateTime.Compare((DateTime)ReturnDate, returnDate);
 
-    Console.WriteLine($"Book returned late by {overdueDays} days. Fine imposed: ${overdueDays * 3}");
-    }
+        if (r < 0)
+        {
+
+            int overdueDays = r * (-1);
+            BorrowedBy!.Fine += overdueDays * 3;
+
+        Console.WriteLine($"Book returned late by {overdueDays} days. Fine imposed: ${overdueDays * 3}");
+        }
 
         BorrowedBy = null;
         BorrowDate = null;

@@ -41,7 +41,7 @@ public class BookController : ControllerBase
     public ActionResult<IEnumerable<string>> GetBookByName(string name)
     {
         var books = _ctx.Books
-            .Where(b => b.Title.Contains(name))
+            .Where(b => b.Title.ToLower().Contains(name.ToLower()))
             .ToList()
             .Select(x => x.DisplayInfo())
             .ToList();
@@ -68,6 +68,23 @@ public class BookController : ControllerBase
         return b.DisplayInfo();
     }
 
+    [HttpGet("report/borrowed")]
+    public ActionResult<IEnumerable<string>> GetBorrowedBooks()
+    {
+        var books = _ctx.Books
+            .Where(b => b.IsBorrowed)
+            .ToList()
+            .Select(x => x.DisplayInfo())
+            .ToList();
+        
+        if (books is null)
+        {
+            return NotFound();
+        }
+
+        return books;
+    }
+
     [HttpPut("update/{id}")]
     public ActionResult<Book> UpdateBook(Book updatedBook, int id)
     {
@@ -87,19 +104,6 @@ public class BookController : ControllerBase
         _ctx.SaveChanges();
         return Ok(book);
     }
-
-    // [HttpGet("/borrowed/{id}")]
-    // public ActionResult<string> IsBookBorrowed(int id)
-    // {
-    //     var book = _ctx.Books.FirstOrDefault(b => b.Id == id);
-
-    //     if (book is null)
-    //     {
-    //         return NotFound("Book is not borrowed.");
-    //     }
-
-    //     return book.IsBookBorrowed();        
-    // }
 
     [HttpPut("borrow/{idB}/{idM}")]
     public ActionResult<Book> BorrowBook([FromRoute] int idB, [FromRoute] Guid idM)
