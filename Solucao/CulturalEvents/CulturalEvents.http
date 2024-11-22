@@ -1,0 +1,6 @@
+@CulturalEvents_HostAddress = http://localhost:5150
+
+GET {{CulturalEvents_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
