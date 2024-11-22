@@ -1,5 +1,6 @@
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers;
 
@@ -134,13 +135,15 @@ public class BookController : ControllerBase
         _ctx.Books.Update(b);
         _ctx.SaveChanges();
 
-        return Ok($"Book {b.Title} was borrowed by {member.Name} on {d.ToShortDateString()}.");
+        return Ok($"Book {b.Title} was borrowed by {b.BorrowedBy!.Name} on {d.ToShortDateString()}.");
     }
 
     [HttpPut("return/{idB}/{returnDate}")]
     public ActionResult<Book> ReturnBook(int idB, DateTime returnDate)
     {
-        var b = _ctx.Books.FirstOrDefault(b => b.Id == idB);
+        var b = _ctx.Books
+            .Include(x => x.BorrowedBy) 
+            .FirstOrDefault(b => b.Id == idB);
 
         if (b is null)
         {
@@ -152,15 +155,21 @@ public class BookController : ControllerBase
             return BadRequest("Book isn't borrowed.");
         }
 
-        b.Return(returnDate);
+        if (b.BorrowedBy is null)
+        {
+            return NotFound("BorrowedBy not found.");
+        }
 
-        var member = b.BorrowedBy;
+        b.Return(returnDate);
+        var member = _ctx.Members.FirstOrDefault(x => x.Id == b.BorrowedBy.Id);
 
         if (member is null)
         {
-            return BadRequest("No member found for this book.");
+            return NotFound("Member wasn't found.");
         }
         
+        b.NullBook(b);
+
         _ctx.Members.Update(member);
         _ctx.Books.Update(b);
         _ctx.SaveChanges();
@@ -182,5 +191,32 @@ public class BookController : ControllerBase
         _ctx.SaveChanges();
 
         return NoContent();
+    }
+
+    [HttpGet("who/{id}")]
+    public ActionResult<Member> GetBorrowedBook(int id)
+    {
+        var b = _ctx.Books
+        .Include(x => x.BorrowedBy) 
+            .FirstOrDefault(b => b.Id == id);
+
+        if (b is null)
+        {
+            return NotFound("Book not found.");
+        }
+
+        if (b.BorrowedBy is null)
+        {
+            return NotFound("BorrowedBy not found.");
+        }
+
+        var member = _ctx.Members.FirstOrDefault(x => x.Id == b.BorrowedBy.Id);
+
+        if (member is null)
+        {
+            return NotFound("Member wasn't found.");
+        }
+
+        return member;
     }
 }

@@ -1,5 +1,5 @@
 @Library_HostAddress = http://localhost:5269/api/member
-@id = 96626e46-7fae-481d-912b-55edd1fe3486
+@id = 62007544-4324-4c8f-aa1c-4f71e043705f
 
 ### POST SINGLE
 POST {{Library_HostAddress}}/single

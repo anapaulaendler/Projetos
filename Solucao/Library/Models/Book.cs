@@ -4,6 +4,8 @@ namespace Library.Models;
 
 public class Book : Item, IBorrowable
 {
+
+    public Guid? BorrowedById { get; set; }
     public required string Author { get; set; }
     public required string Genre { get; set; }
     public bool IsBorrowed { get; set; }
@@ -33,7 +35,7 @@ public class Book : Item, IBorrowable
         ReturnDate = BorrowDate?.AddDays(BorrowDurationDays);
         IsBorrowed = true;
 
-        Console.WriteLine($"Book '{Title}' borrowed by {member.Name} on {borrowDate.ToShortDateString()}. Return it until {ReturnDate?.ToShortDateString()}");
+        Console.WriteLine($"Book '{Title}' borrowed by {BorrowedBy.Name} on {borrowDate.ToShortDateString()}. Return it until {ReturnDate?.ToShortDateString()}");
     }
 
     public void Return(DateTime returnDate)
@@ -49,9 +51,9 @@ public class Book : Item, IBorrowable
          if (ReturnDate.HasValue && returnDate > ReturnDate.Value)
         {
             overdueDays = (returnDate - ReturnDate.Value).Days;
-        }       
+        }
 
-        if (overdueDays < 0)
+        if (overdueDays > 0)
         {
             int fine = overdueDays * FinePerDay;
             BorrowedBy!.Fine += fine;
@@ -59,11 +61,14 @@ public class Book : Item, IBorrowable
         Console.WriteLine($"Book returned late by {overdueDays} days. Fine imposed: ${overdueDays * 3}");
         }
 
+        Console.WriteLine($"Book '{Title}' returned on {returnDate.ToShortDateString()}.");
+    }
+
+    public void NullBook(Book book)
+    {
         BorrowedBy = null;
         BorrowDate = null;
         ReturnDate = null;
         IsBorrowed = false;
-
-        Console.WriteLine($"Book '{Title}' returned on {returnDate.ToShortDateString()}.");
     }
 }
