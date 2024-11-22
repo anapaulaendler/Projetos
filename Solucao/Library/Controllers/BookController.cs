@@ -154,6 +154,14 @@ public class BookController : ControllerBase
 
         b.Return(returnDate);
 
+        var member = b.BorrowedBy;
+
+        if (member is null)
+        {
+            return BadRequest("No member found for this book.");
+        }
+        
+        _ctx.Members.Update(member);
         _ctx.Books.Update(b);
         _ctx.SaveChanges();
 
