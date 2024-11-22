@@ -16,7 +16,7 @@ public class BookController : ControllerBase
     [HttpPost("single")]
     public ActionResult<Book> PostBook(Book book)
     {
-        _ctx.Add(book);
+        _ctx.Books.Add(book);
         _ctx.SaveChanges();
 
         return Ok(book);
@@ -25,7 +25,7 @@ public class BookController : ControllerBase
     [HttpPost("bulk")]
     public ActionResult<IEnumerable<Book>> PostBooks(List<Book> books)
     {
-        _ctx.AddRange(books);
+        _ctx.Books.AddRange(books);
         _ctx.SaveChanges();
 
         return Ok(books);
