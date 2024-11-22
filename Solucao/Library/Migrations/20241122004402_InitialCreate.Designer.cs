@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241121165206_ControllerAndBookModified")]
-    partial class ControllerAndBookModified
+    [Migration("20241122004402_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,12 +29,21 @@ namespace Library.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("BorrowDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("BorrowedById")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsBorrowed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ReturnDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -44,6 +53,8 @@ namespace Library.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BorrowedById");
 
                     b.ToTable("Books");
                 });
@@ -124,6 +135,15 @@ namespace Library.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("Library.Models.Book", b =>
+                {
+                    b.HasOne("Library.Models.Member", "BorrowedBy")
+                        .WithMany()
+                        .HasForeignKey("BorrowedById");
+
+                    b.Navigation("BorrowedBy");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
 @Library_HostAddress = http://localhost:5269/api/book
 @id = 5
-@idM = 96626e46-7fae-481d-912b-55edd1fe3486
+@idM = 7378d9b3-86f5-4897-b2d1-7289181d47cb
 
 ### POST SINGLE
 POST {{Library_HostAddress}}/single
@@ -45,7 +45,7 @@ GET {{Library_HostAddress}}
 GET {{Library_HostAddress}}/{{id}}
 Accept-Encoding: *
 
-### SEARCH STRING: FIX IT
+### SEARCH STRING
 GET {{Library_HostAddress}}/search/WU
 Accept-Encoding: *
 
@@ -64,10 +64,10 @@ Content-Type: application/json
 DELETE {{Library_HostAddress}}/{{id}}
 
 ### BORROW BOOK
-PUT {{Library_HostAddress}}/borrow/{{id}}/{{idM}}
+PUT {{Library_HostAddress}}/borrow/1/{{idM}}
 
 ### RETURN BOOK
-PUT {{Library_HostAddress}}/return/{{id}}/2024-12-21
+PUT {{Library_HostAddress}}/return/1/2024-12-21
 
 ### BORROWED BOOKS
 GET {{Library_HostAddress}}/report/borrowed

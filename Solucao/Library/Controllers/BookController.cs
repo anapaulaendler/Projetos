@@ -122,6 +122,11 @@ public class BookController : ControllerBase
             return NotFound("Member not found.");
         }
 
+        if (b.IsBorrowed)
+        {
+            return BadRequest("Book is already borrowed.");
+        }
+
         DateTime d = DateTime.Now;
 
         b.Borrow(member, d);
@@ -140,6 +145,11 @@ public class BookController : ControllerBase
         if (b is null)
         {
             return NotFound("Book not found.");
+        }
+
+        if (!b.IsBorrowed)
+        {
+            return BadRequest("Book isn't borrowed.");
         }
 
         b.Return(returnDate);

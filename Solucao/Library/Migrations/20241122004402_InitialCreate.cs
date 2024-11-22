@@ -12,23 +12,6 @@ namespace Library.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Books",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Author = table.Column<string>(type: "TEXT", nullable: false),
-                    Genre = table.Column<string>(type: "TEXT", nullable: false),
-                    IsBorrowed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    YearPublished = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Books", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Librarians",
                 columns: table => new
                 {
@@ -73,6 +56,36 @@ namespace Library.Migrations
                 {
                     table.PrimaryKey("PK_Members", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Author = table.Column<string>(type: "TEXT", nullable: false),
+                    Genre = table.Column<string>(type: "TEXT", nullable: false),
+                    IsBorrowed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    BorrowedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    BorrowDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ReturnDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    YearPublished = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Members_BorrowedById",
+                        column: x => x.BorrowedById,
+                        principalTable: "Members",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_BorrowedById",
+                table: "Books",
+                column: "BorrowedById");
         }
 
         /// <inheritdoc />
