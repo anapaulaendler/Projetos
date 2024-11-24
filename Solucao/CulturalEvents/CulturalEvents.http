@@ -1,6 +1,12 @@
 @CulturalEvents_HostAddress = http://localhost:5150
 
-GET {{CulturalEvents_HostAddress}}/weatherforecast/
-Accept: application/json
+PUT {{CulturalEvents_HostAddress}}/api/tickets
+Content-Type: application/json
 
-###
+{
+    "Price": 10.00,
+    "Status": true
+}
+
+### GET BY ID
+GET {{CulturalEvents_HostAddress}}/api/tickets/6930d43c-ae97-4d8f-a4fb-dcc41436c7fb
