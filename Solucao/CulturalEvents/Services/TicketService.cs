@@ -1,36 +1,37 @@
 using CulturalEvents.Interfaces;
 using CulturalEvents.Models;
+using CulturalEvents.Repositories;
+
 namespace CulturalEvents.Services;
 
-public class TicketService : ITicketService
+public class TicketService
 {
-    public Ticket CreateTicket(int idE, int idP, decimal price)
+    private readonly ITicketRepository _ticketRepository;
+
+    public TicketService(ITicketRepository ticketRepository)
     {
-        throw new NotImplementedException();
+        _ticketRepository = ticketRepository;
     }
 
-    public void DeleteTicket(int id)
+    public async Task CreateTicketAsync(Ticket ticket)
     {
-        throw new NotImplementedException();
+        await _ticketRepository.AddAsync(ticket);
     }
 
-    public Ticket GetTicketById(int id)
+    public async Task<IEnumerable<Ticket>> GetAllTicketsAsync()
     {
-        throw new NotImplementedException();
+        return await _ticketRepository.Get();
     }
 
-    public List<Ticket> GetTickets()
+    public async Task<Ticket> GetTicketByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _ticketRepository.GetById(id);
     }
 
-    public List<Ticket> GetTicketsByDate(DateTime date)
+    public async Task DeleteTicketAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var ticket = await _ticketRepository.GetById(id);
+        await _ticketRepository.Delete(ticket);
     }
 
-    public Ticket UpdateTicket(bool status, int id)
-    {
-        throw new NotImplementedException();
-    }
 }
