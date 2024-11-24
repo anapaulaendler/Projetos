@@ -8,6 +8,7 @@ public abstract class Event : IEntity
     public DateTime Date { get; set; }
     public required string Location { get; set; }
     public int Capacity { get; set; }
+    public decimal Fee { get; set; }
 
     public abstract void CalculateFee();
     public abstract void GenerateReport();

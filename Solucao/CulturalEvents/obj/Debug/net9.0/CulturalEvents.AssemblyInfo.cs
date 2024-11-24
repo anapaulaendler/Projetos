@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CulturalEvents")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07b64743d8a96069f5e006138d2bf9fb32235737")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d368859e3bb7070353539098f65a4f024156ddb")]
 [assembly: System.Reflection.AssemblyProductAttribute("CulturalEvents")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CulturalEvents")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

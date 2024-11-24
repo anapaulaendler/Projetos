@@ -6,10 +6,12 @@ namespace CulturalEvents.Services;
 public class ConcertService
 {
     private readonly IConcertRepository _concertRepository;
+    private readonly ITicketRepository _ticketRepository;
 
-    private ConcertService(IConcertRepository concertRepository)
+    private ConcertService(IConcertRepository concertRepository, ITicketRepository ticketRepository)
     {
         _concertRepository = concertRepository;
+        _ticketRepository = ticketRepository;
     }
 
     public async Task CreateConcertAsync(Concert concert)
@@ -37,4 +39,18 @@ public class ConcertService
         var concert = await _concertRepository.GetById(id);
         await _concertRepository.Delete(concert);
     }
+
+    // public async Task<string> GenerateDetailedReportAsync(Guid id)
+    // {
+    //     var concert = await _concertRepository.GetById(id);
+    //     var tickets = await _ticketRepository.Get(t => t.Event.Id == id);
+
+    //     concert.GenerateReport(); 
+
+    //     var revenue = tickets.Sum(t => t.Price);
+    //     return $"Total Tickets Sold: {tickets.Count()}, Total Revenue: {revenue:C}";
+    // }
+
+    // tá comentado porque Event em Ticket tá comentado também porque eu tava testando se funcionava, depois lembrar de tirar
+
 }

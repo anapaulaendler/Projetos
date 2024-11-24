@@ -35,4 +35,25 @@ public class TicketController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpGet]
+    public async Task<IEnumerable<Ticket>> GetTickets()
+    {
+        var tickets = await _ticketService.GetAllTicketsAsync();
+        return tickets;
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteTicket(Guid id)
+    {
+        try
+        {
+            await _ticketService.DeleteTicketAsync(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+    }
 }
