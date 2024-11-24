@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj": {}
+    "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj": {
+    "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj",
+        "projectUniqueName": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj",
         "projectName": "ProjetoController",
-        "projectPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj",
-        "packagesPath": "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\ProjetoController\\obj\\",
+        "projectPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\ProjetoController\\ProjetoController.csproj",
+        "packagesPath": "C:\\Users\\Usuário\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\ProjetoController\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dev-Headsoft\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Usuário\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"

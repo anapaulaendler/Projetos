@@ -3143,19 +3143,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\": {}
+    "C:\\Users\\Usuário\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\CulturalEvents\\CulturalEvents.csproj",
+      "projectUniqueName": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\CulturalEvents\\CulturalEvents.csproj",
       "projectName": "CulturalEvents",
-      "projectPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\CulturalEvents\\CulturalEvents.csproj",
-      "packagesPath": "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\CulturalEvents\\obj\\",
+      "projectPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\CulturalEvents\\CulturalEvents.csproj",
+      "packagesPath": "C:\\Users\\Usuário\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\Projetos\\Solucao\\CulturalEvents\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dev-Headsoft\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Usuário\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
