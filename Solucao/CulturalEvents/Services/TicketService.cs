@@ -4,7 +4,7 @@ using CulturalEvents.Repositories;
 
 namespace CulturalEvents.Services;
 
-public class TicketService
+public class TicketService : ITicketService
 {
     private readonly ITicketRepository _ticketRepository;
 

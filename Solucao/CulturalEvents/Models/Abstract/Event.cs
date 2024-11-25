@@ -4,7 +4,7 @@ public abstract class Event : IEntity
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
-    public int ArtistId { get; set; }
+    public Guid ArtistId { get; set; }
     public DateTime Date { get; set; }
     public required string Location { get; set; }
     public int Capacity { get; set; }

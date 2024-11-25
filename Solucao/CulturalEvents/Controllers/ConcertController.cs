@@ -8,9 +8,9 @@ namespace CulturalEvents.Controllers;
 [Route("api/concerts")]
 public class ConcertController : ControllerBase
 {
-    private readonly ConcertService _concertService;
+    private readonly IConcertService _concertService;
 
-    public ConcertController(ConcertService concertService)
+    public ConcertController(IConcertService concertService)
     {
         _concertService = concertService;
     }
@@ -57,5 +57,10 @@ public class ConcertController : ControllerBase
         }
     }
 
-    
+    [HttpGet("report/{id}")]
+    public async Task<string> GenerateConcertReport(Guid id)
+    {
+        var report = await _concertService.GenerateDetailedReportAsync(id);
+        return report;
+    }
 }

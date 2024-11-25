@@ -3,8 +3,9 @@ using CulturalEvents.Repositories;
 
 namespace CulturalEvents.Services;
 
-public class ConcertService
+public class ConcertService : IConcertService
 {
+
     private readonly IConcertRepository _concertRepository;
     private readonly ITicketRepository _ticketRepository;
 
@@ -40,17 +41,14 @@ public class ConcertService
         await _concertRepository.Delete(concert);
     }
 
-    // public async Task<string> GenerateDetailedReportAsync(Guid id)
-    // {
-    //     var concert = await _concertRepository.GetById(id);
-    //     var tickets = await _ticketRepository.Get(t => t.Event.Id == id);
+    async Task<string> IConcertService.GenerateDetailedReportAsync(Guid id)
+    {
+        var concert = await _concertRepository.GetById(id);
+        var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
 
-    //     concert.GenerateReport(); 
+        concert.GenerateReport(); 
 
-    //     var revenue = tickets.Sum(t => t.Price);
-    //     return $"Total Tickets Sold: {tickets.Count()}, Total Revenue: {revenue:C}";
-    // }
-
-    // tá comentado porque Event em Ticket tá comentado também porque eu tava testando se funcionava, depois lembrar de tirar
-
+        var revenue = tickets.Sum(t => t.Price);
+        return $"Total Tickets Sold: {tickets.Count()}, Total Revenue: {revenue:C}";
+    }
 }

@@ -38,42 +38,6 @@ namespace CulturalEvents.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Concerts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MusicGenre = table.Column<string>(type: "TEXT", nullable: true),
-                    Artist = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", nullable: false),
-                    Capacity = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Concerts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Exhibitions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MainArtist = table.Column<string>(type: "TEXT", nullable: false),
-                    Duration = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", nullable: false),
-                    Capacity = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exhibitions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Participants",
                 columns: table => new
                 {
@@ -99,21 +63,30 @@ namespace CulturalEvents.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TheaterPlays",
+                name: "Event",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Director = table.Column<string>(type: "TEXT", nullable: false),
-                    Cast = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ArtistId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false),
-                    Capacity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Capacity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Fee = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
+                    MusicGenre = table.Column<string>(type: "TEXT", nullable: true),
+                    Duration = table.Column<int>(type: "INTEGER", nullable: true),
+                    Cast = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TheaterPlays", x => x.Id);
+                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Event_Artists_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,41 +94,62 @@ namespace CulturalEvents.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EventId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ParticipantId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tickets_Participants_ParticipantId",
+                        column: x => x.ParticipantId,
+                        principalTable: "Participants",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_ArtistId",
+                table: "Event",
+                column: "ArtistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_EventId",
+                table: "Tickets",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ParticipantId",
+                table: "Tickets",
+                column: "ParticipantId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Artists");
-
-            migrationBuilder.DropTable(
                 name: "CardPayments");
-
-            migrationBuilder.DropTable(
-                name: "Concerts");
-
-            migrationBuilder.DropTable(
-                name: "Exhibitions");
-
-            migrationBuilder.DropTable(
-                name: "Participants");
 
             migrationBuilder.DropTable(
                 name: "PixPayments");
 
             migrationBuilder.DropTable(
-                name: "TheaterPlays");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "Participants");
+
+            migrationBuilder.DropTable(
+                name: "Artists");
         }
     }
 }

@@ -9,4 +9,4 @@ Content-Type: application/json
 }
 
 ### GET BY ID
-GET {{CulturalEvents_HostAddress}}/api/tickets/6930d43c-ae97-4d8f-a4fb-dcc41436c7fb
+GET {{CulturalEvents_HostAddress}}/api/tickets/2e36dc6c-e3a4-4437-966d-64cdecf8f20f

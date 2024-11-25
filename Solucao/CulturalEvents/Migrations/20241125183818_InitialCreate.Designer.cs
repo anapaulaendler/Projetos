@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CulturalEvents.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241124224448_InitialCreate")]
+    [Migration("20241125183818_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -57,17 +57,14 @@ namespace CulturalEvents.Migrations
                     b.ToTable("CardPayments");
                 });
 
-            modelBuilder.Entity("CulturalEvents.Models.Concert", b =>
+            modelBuilder.Entity("CulturalEvents.Models.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Artist")
+                    b.Property<Guid>("ArtistId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("ArtistId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("INTEGER");
@@ -75,46 +72,15 @@ namespace CulturalEvents.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
+                        .HasMaxLength(13)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MusicGenre")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Concerts");
-                });
-
-            modelBuilder.Entity("CulturalEvents.Models.Exhibition", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ArtistId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Duration")
-                        .IsRequired()
+                    b.Property<decimal>("Fee")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MainArtist")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -124,7 +90,11 @@ namespace CulturalEvents.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exhibitions");
+                    b.ToTable("Event");
+
+                    b.HasDiscriminator().HasValue("Event");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("CulturalEvents.Models.Participant", b =>
@@ -161,46 +131,16 @@ namespace CulturalEvents.Migrations
                     b.ToTable("PixPayments");
                 });
 
-            modelBuilder.Entity("CulturalEvents.Models.TheaterPlay", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ArtistId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cast")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Director")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TheaterPlays");
-                });
-
             modelBuilder.Entity("CulturalEvents.Models.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EventId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ParticipantId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
@@ -211,7 +151,96 @@ namespace CulturalEvents.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("ParticipantId");
+
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.Concert", b =>
+                {
+                    b.HasBaseType("CulturalEvents.Models.Event");
+
+                    b.Property<string>("MusicGenre")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasDiscriminator().HasValue("Concert");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.Exhibition", b =>
+                {
+                    b.HasBaseType("CulturalEvents.Models.Event");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasDiscriminator().HasValue("Exhibition");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.TheaterPlay", b =>
+                {
+                    b.HasBaseType("CulturalEvents.Models.Event");
+
+                    b.PrimitiveCollection<string>("Cast")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasDiscriminator().HasValue("TheaterPlay");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.Ticket", b =>
+                {
+                    b.HasOne("CulturalEvents.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+
+                    b.HasOne("CulturalEvents.Models.Participant", "Participant")
+                        .WithMany()
+                        .HasForeignKey("ParticipantId");
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Participant");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.Concert", b =>
+                {
+                    b.HasOne("CulturalEvents.Models.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.Exhibition", b =>
+                {
+                    b.HasOne("CulturalEvents.Models.Artist", "MainArtist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MainArtist");
+                });
+
+            modelBuilder.Entity("CulturalEvents.Models.TheaterPlay", b =>
+                {
+                    b.HasOne("CulturalEvents.Models.Artist", "Director")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Director");
                 });
 #pragma warning restore 612, 618
         }
