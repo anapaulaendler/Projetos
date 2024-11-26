@@ -3143,19 +3143,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuário\\.nuget\\packages\\": {}
+    "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuário\\OneDrive\\Documentos\\C#\\Projetos\\Solucao\\Library\\Library.csproj",
+      "projectUniqueName": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
       "projectName": "Library",
-      "projectPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\C#\\Projetos\\Solucao\\Library\\Library.csproj",
-      "packagesPath": "C:\\Users\\Usuário\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuário\\OneDrive\\Documentos\\C#\\Projetos\\Solucao\\Library\\obj\\",
+      "projectPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
+      "packagesPath": "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Usuário\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Dev-Headsoft\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"

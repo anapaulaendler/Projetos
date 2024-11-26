@@ -15,7 +15,7 @@ public class ExhibitionController : ControllerBase
         _exhibitionService = exhibitionService;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<Exhibition> CreateExhibition(Exhibition exhibition)
     {
         await _exhibitionService.CreateExhibitionAsync(exhibition);
@@ -43,7 +43,7 @@ public class ExhibitionController : ControllerBase
         return exhibitions;
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteExhibition(Guid id)
     {
         try
@@ -62,5 +62,13 @@ public class ExhibitionController : ControllerBase
     {
         var report = await _exhibitionService.GenerateDetailedReportAsync(id);
         return report;
+    }
+
+    [HttpPut("{id}")]
+    public async Task<Exhibition> UpdateExhibition(Exhibition exhibition, Guid id)
+    {
+        await _exhibitionService.UpdateExhibitionAsync(exhibition, id);
+
+        return exhibition;
     }
 }

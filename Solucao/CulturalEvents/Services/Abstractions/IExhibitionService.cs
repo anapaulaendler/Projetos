@@ -7,7 +7,7 @@ namespace CulturalEvents.Services
         Task CreateExhibitionAsync(Exhibition exhibition);
         Task<IEnumerable<Exhibition>> GetAllExhibitionsAsync();
         Task<Exhibition> GetExhibitionByIdAsync(Guid id);
-        Task UpdateExhibitionAsync(Exhibition exhibition);
+        Task UpdateExhibitionAsync(Exhibition exhibition, Guid id);
         Task DeleteExhibitionAsync(Guid id);
         Task<string> GenerateDetailedReportAsync(Guid id);
     }

@@ -2,8 +2,7 @@ namespace CulturalEvents.Models;
 
 public class Concert : Event
 {
-    public string? MusicGenre { get; set; }
-    public Artist? Artist { get; set; }
+    public required string MusicGenre { get; set; }
     public override void CalculateFee()
     {
         if (Artist is null)

@@ -2,8 +2,8 @@ namespace CulturalEvents.Models;
 
 public class Participant : Person
 {
-    public override void DisplayDetails()
+        public override string DisplayDetails()
     {
-        Console.WriteLine($"Artist: {Name}, Id: {Id}, CPF: {Cpf}, E-mail: {Email}");
+        return $"Participant: {Name}, Id: {Id}, CPF: {Cpf}, E-mail: {Email}";
     }
 }

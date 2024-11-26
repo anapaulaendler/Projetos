@@ -94,8 +94,8 @@ namespace CulturalEvents.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    EventId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    ParticipantId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    EventId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ParticipantId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
@@ -106,12 +106,14 @@ namespace CulturalEvents.Migrations
                         name: "FK_Tickets_Event_EventId",
                         column: x => x.EventId,
                         principalTable: "Event",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Participants_ParticipantId",
                         column: x => x.ParticipantId,
                         principalTable: "Participants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,0 +1,35 @@
+@CulturalEvents_HostAddress = http://localhost:5150/api/artists
+
+
+POST {{CulturalEvents_HostAddress}}
+Content-Type: application/json
+
+{
+    "Name": "Badabó",
+    "Cpf": "111",
+    "Email": "badabo@gmail.com",
+    "Speciality": "Yoleleleiho"
+}
+
+### list all artists
+GET {{CulturalEvents_HostAddress}}
+
+### get artist
+GET {{CulturalEvents_HostAddress}}/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+
+### update artist
+PUT {{CulturalEvents_HostAddress}}/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+Content-Type: application/json
+
+{
+    "Name": "Badabó",
+    "Cpf": "111",
+    "Email": "badabo@gmail.com",
+    "Speciality": "Yoleleleihuuuu" 
+}
+
+### display details
+GET {{CulturalEvents_HostAddress}}/details/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+
+### delete artist
+DELETE {{CulturalEvents_HostAddress}}/B95F320F-DF0E-429F-9AC7-08C7EA5C06D0

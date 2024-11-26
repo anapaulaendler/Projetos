@@ -3,9 +3,10 @@ namespace CulturalEvents.Models;
 public class Artist : Person
 {
     public required string Speciality { get; set; }
+    public ICollection<Concert> Concerts { get; set; } = [];
 
-    public override void DisplayDetails()
+    public override string DisplayDetails()
     {
-        Console.WriteLine($"Artist: {Name}, Id: {Id}, CPF: {Cpf}, E-mail: {Email}, Speciality: {Speciality}");
+        return $"Artist: {Name}, Id: {Id}, CPF: {Cpf}, E-mail: {Email}, Speciality: {Speciality}";
     }
 }

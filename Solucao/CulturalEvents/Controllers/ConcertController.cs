@@ -15,7 +15,7 @@ public class ConcertController : ControllerBase
         _concertService = concertService;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<Concert> CreateConcert(Concert concert)
     {
         await _concertService.CreateConcertAsync(concert);
@@ -43,7 +43,7 @@ public class ConcertController : ControllerBase
         return concerts;
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteConcert(Guid id)
     {
         try
@@ -62,5 +62,13 @@ public class ConcertController : ControllerBase
     {
         var report = await _concertService.GenerateDetailedReportAsync(id);
         return report;
+    }
+
+    [HttpPut("{id}")]
+    public async Task<Concert> UpdateConcert(Concert concert, Guid id)
+    {
+        await _concertService.UpdateConcertAsync(concert, id);
+
+        return concert;
     }
 }

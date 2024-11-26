@@ -7,15 +7,21 @@ public class ExhibitionService : IExhibitionService
 {
     private readonly IExhibitionRepository _exhibitionRepository;
     private readonly ITicketRepository _ticketRepository;
+    private readonly IArtistRepository _artistRepository;
 
-    private ExhibitionService(IExhibitionRepository exhibitionRepository, ITicketRepository ticketRepository)
+
+    public ExhibitionService(IExhibitionRepository exhibitionRepository, ITicketRepository ticketRepository, IArtistRepository artistRepository)
     {
         _exhibitionRepository = exhibitionRepository;
         _ticketRepository = ticketRepository;
+        _artistRepository = artistRepository;
     }
 
     public async Task CreateExhibitionAsync(Exhibition exhibition)
     {
+        exhibition.Artist = await _artistRepository.GetById(exhibition.ArtistId);
+        exhibition.CalculateFee();
+
         await _exhibitionRepository.AddAsync(exhibition);
     }
 
@@ -29,9 +35,9 @@ public class ExhibitionService : IExhibitionService
         return await _exhibitionRepository.GetById(id);
     }
 
-    public async Task UpdateExhibitionAsync(Exhibition exhibition)
+    public async Task UpdateExhibitionAsync(Exhibition exhibition, Guid id)
     {
-        await _exhibitionRepository.Update(exhibition);
+        await _exhibitionRepository.Update(exhibition, id);
     }
 
     public async Task DeleteExhibitionAsync(Guid id)
@@ -44,7 +50,6 @@ public class ExhibitionService : IExhibitionService
     {
         var exhibition = await _exhibitionRepository.GetById(id);
         var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
-        // pode dar erro aqui
 
         exhibition.GenerateReport(); 
 

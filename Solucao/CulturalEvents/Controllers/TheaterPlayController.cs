@@ -15,7 +15,7 @@ public class TheaterPlayController : ControllerBase
         _theaterPlayService = theaterPlayService;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<TheaterPlay> CreateTheaterPlay(TheaterPlay theaterPlay)
     {
         await _theaterPlayService.CreateTheaterPlayAsync(theaterPlay);
@@ -43,7 +43,7 @@ public class TheaterPlayController : ControllerBase
         return theaterPlays;
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTheaterPlay(Guid id)
     {
         try
@@ -62,5 +62,13 @@ public class TheaterPlayController : ControllerBase
     {
         var report = await _theaterPlayService.GenerateDetailedReportAsync(id);
         return report;
+    }
+
+    [HttpPut("{id}")]
+    public async Task<TheaterPlay> UpdateTheaterPlay(TheaterPlay theaterPlay, Guid id)
+    {
+        await _theaterPlayService.UpdateTheaterPlayAsync(theaterPlay, id);
+
+        return theaterPlay;
     }
 }

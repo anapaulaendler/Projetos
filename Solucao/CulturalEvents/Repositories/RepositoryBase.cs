@@ -53,8 +53,16 @@ namespace CulturalEvents.Repositories
             return entity;
         }
 
-        public async Task Update(TEntity entity)
+        public async Task Update(TEntity updatedEntity, Guid id)
         {
+            var entity = await _dbSet.FindAsync(id);
+
+            if (entity is null)
+            {
+                throw new KeyNotFoundException();
+            }
+            entity = updatedEntity;
+            
             _dbSet.Update(entity);
             await _ctx.SaveChangesAsync();
         }

@@ -5,6 +5,7 @@ public abstract class Event : IEntity
     public Guid Id { get; set; }
     public required string Name { get; set; }
     public Guid ArtistId { get; set; }
+    public required Artist Artist { get; set; }
     public DateTime Date { get; set; }
     public required string Location { get; set; }
     public int Capacity { get; set; }
@@ -12,11 +13,4 @@ public abstract class Event : IEntity
 
     public abstract void CalculateFee();
     public abstract void GenerateReport();
-}
-
-public enum TypeOfEvent
-{
-    Concert,
-    Exhibition,
-    TheatherPlay
 }

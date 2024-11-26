@@ -2,16 +2,15 @@ namespace CulturalEvents.Models;
 
 public class TheaterPlay : Event
 {
-    public Artist? Director { get; set; }
     public required ICollection<string> Cast { get; set; }
     public override void CalculateFee()
     {
-        if (Director is null)
+        if (Artist is null)
         {
             throw new InvalidOperationException("Artist not found.");
         }
 
-        if (string.IsNullOrEmpty(Director.Name))
+        if (string.IsNullOrEmpty(Artist.Name))
         {
             throw new InvalidOperationException("Artist name needed.");
         }
@@ -25,13 +24,13 @@ public class TheaterPlay : Event
 
     public override void GenerateReport()
     {
-        if (Director is null)
+        if (Artist is null)
         {
-            throw new InvalidOperationException("Artist not found.");
+            throw new InvalidOperationException("Director not found.");
         }
 
         Console.WriteLine("Concert report: ");
-        Console.WriteLine($"Artist: {Director.Name}");
+        Console.WriteLine($"Director: {Artist.Name}");
         Console.WriteLine($"Cast: {Cast}");
         Console.WriteLine($"Fee: {Fee}");
     }

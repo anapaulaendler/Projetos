@@ -8,17 +8,20 @@ public class ConcertService : IConcertService
 
     private readonly IConcertRepository _concertRepository;
     private readonly ITicketRepository _ticketRepository;
+    private readonly IArtistRepository _artistRepository;
 
-    public ConcertService(IConcertRepository concertRepository, ITicketRepository ticketRepository)
+    public ConcertService(IConcertRepository concertRepository, ITicketRepository ticketRepository, IArtistRepository artistRepository)
     {
         _concertRepository = concertRepository;
         _ticketRepository = ticketRepository;
+        _artistRepository = artistRepository;
     }
-
-    // lembrar de trocar o construtor das outras filhas
 
     public async Task CreateConcertAsync(Concert concert)
     {
+        concert.Artist = await _artistRepository.GetById(concert.ArtistId);
+        concert.CalculateFee();
+        
         await _concertRepository.AddAsync(concert);
     }
 
@@ -32,9 +35,9 @@ public class ConcertService : IConcertService
         return await _concertRepository.GetById(id);
     }
 
-    public async Task UpdateConcertAsync(Concert concert)
+    public async Task UpdateConcertAsync(Concert concert, Guid id)
     {
-        await _concertRepository.Update(concert);
+        await _concertRepository.Update(concert, id);
     }
 
     public async Task DeleteConcertAsync(Guid id)
@@ -43,7 +46,7 @@ public class ConcertService : IConcertService
         await _concertRepository.Delete(concert);
     }
 
-    async Task<string> IConcertService.GenerateDetailedReportAsync(Guid id)
+    public async Task<string> GenerateDetailedReportAsync(Guid id)
     {
         var concert = await _concertRepository.GetById(id);
         var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);

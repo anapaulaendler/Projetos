@@ -43,7 +43,7 @@ public class TicketController : ControllerBase
         return tickets;
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTicket(Guid id)
     {
         try

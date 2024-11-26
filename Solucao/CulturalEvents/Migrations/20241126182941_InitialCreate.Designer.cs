@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CulturalEvents.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241125183818_InitialCreate")]
+    [Migration("20241126182941_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -90,6 +90,8 @@ namespace CulturalEvents.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtistId");
+
                     b.ToTable("Event");
 
                     b.HasDiscriminator().HasValue("Event");
@@ -137,10 +139,10 @@ namespace CulturalEvents.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EventId")
+                    b.Property<Guid>("EventId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ParticipantId")
+                    b.Property<Guid>("ParticipantId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
@@ -163,9 +165,8 @@ namespace CulturalEvents.Migrations
                     b.HasBaseType("CulturalEvents.Models.Event");
 
                     b.Property<string>("MusicGenre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.HasIndex("ArtistId");
 
                     b.HasDiscriminator().HasValue("Concert");
                 });
@@ -176,8 +177,6 @@ namespace CulturalEvents.Migrations
 
                     b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
-
-                    b.HasIndex("ArtistId");
 
                     b.HasDiscriminator().HasValue("Exhibition");
                 });
@@ -190,27 +189,10 @@ namespace CulturalEvents.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasIndex("ArtistId");
-
                     b.HasDiscriminator().HasValue("TheaterPlay");
                 });
 
-            modelBuilder.Entity("CulturalEvents.Models.Ticket", b =>
-                {
-                    b.HasOne("CulturalEvents.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("CulturalEvents.Models.Participant", "Participant")
-                        .WithMany()
-                        .HasForeignKey("ParticipantId");
-
-                    b.Navigation("Event");
-
-                    b.Navigation("Participant");
-                });
-
-            modelBuilder.Entity("CulturalEvents.Models.Concert", b =>
+            modelBuilder.Entity("CulturalEvents.Models.Event", b =>
                 {
                     b.HasOne("CulturalEvents.Models.Artist", "Artist")
                         .WithMany()
@@ -221,26 +203,23 @@ namespace CulturalEvents.Migrations
                     b.Navigation("Artist");
                 });
 
-            modelBuilder.Entity("CulturalEvents.Models.Exhibition", b =>
+            modelBuilder.Entity("CulturalEvents.Models.Ticket", b =>
                 {
-                    b.HasOne("CulturalEvents.Models.Artist", "MainArtist")
+                    b.HasOne("CulturalEvents.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("ArtistId")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MainArtist");
-                });
-
-            modelBuilder.Entity("CulturalEvents.Models.TheaterPlay", b =>
-                {
-                    b.HasOne("CulturalEvents.Models.Artist", "Director")
+                    b.HasOne("CulturalEvents.Models.Participant", "Participant")
                         .WithMany()
-                        .HasForeignKey("ArtistId")
+                        .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Director");
+                    b.Navigation("Event");
+
+                    b.Navigation("Participant");
                 });
 #pragma warning restore 612, 618
         }

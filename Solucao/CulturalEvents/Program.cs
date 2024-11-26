@@ -4,15 +4,23 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// lembrar aqui
-
-// builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddScoped<IConcertRepository, ConcertRepository>();
 builder.Services.AddScoped<IConcertService, ConcertService>();
+
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+builder.Services.AddScoped<IArtistService, ArtistService>();
+
+builder.Services.AddScoped<IExhibitionRepository, ExhibitionRepository>();
+builder.Services.AddScoped<IExhibitionService, ExhibitionService>();
+
+builder.Services.AddScoped<IParticipantRepository, ParticipantRepository>();
+builder.Services.AddScoped<IParticipantService, ParticipantService>();
+
+builder.Services.AddScoped<ITheaterPlayRepository, TheaterPlayRepository>();
+builder.Services.AddScoped<ITheaterPlayService, TheaterPlayService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

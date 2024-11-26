@@ -7,5 +7,5 @@ public abstract class Person : IEntity
     public required string Cpf { get; set; }
     public required string Email { get; set; }
 
-    public abstract void DisplayDetails();
+    public abstract string DisplayDetails();
 }

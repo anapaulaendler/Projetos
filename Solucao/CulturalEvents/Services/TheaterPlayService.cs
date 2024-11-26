@@ -7,15 +7,21 @@ public class TheaterPlayService : ITheaterPlayService
 {
     private readonly ITheaterPlayRepository _theaterPlayRepository;
     private readonly ITicketRepository _ticketRepository;
+    private readonly IArtistRepository _artistRepository;
 
-    private TheaterPlayService(ITheaterPlayRepository theaterPlayRepository, ITicketRepository ticketRepository)
+
+    public TheaterPlayService(ITheaterPlayRepository theaterPlayRepository, ITicketRepository ticketRepository, IArtistRepository artistRepository)
     {
         _theaterPlayRepository = theaterPlayRepository;
         _ticketRepository = ticketRepository;
+        _artistRepository = artistRepository;
     }
 
     public async Task CreateTheaterPlayAsync(TheaterPlay theaterPlay)
     {
+        theaterPlay.Artist = await _artistRepository.GetById(theaterPlay.ArtistId);
+        theaterPlay.CalculateFee();
+
         await _theaterPlayRepository.AddAsync(theaterPlay);
     }
 
@@ -29,9 +35,9 @@ public class TheaterPlayService : ITheaterPlayService
         return await _theaterPlayRepository.GetById(id);
     }
 
-    public async Task UpdateTheaterPlayAsync(TheaterPlay theaterPlay)
+    public async Task UpdateTheaterPlayAsync(TheaterPlay theaterPlay, Guid id)
     {
-        await _theaterPlayRepository.Update(theaterPlay);
+        await _theaterPlayRepository.Update(theaterPlay, id);
     }
 
     public async Task DeleteTheaterPlayAsync(Guid id)
@@ -44,7 +50,6 @@ public class TheaterPlayService : ITheaterPlayService
     {
         var theaterPlay = await _theaterPlayRepository.GetById(id);
         var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
-        // pode dar erro aqui
 
         theaterPlay.GenerateReport(); 
 

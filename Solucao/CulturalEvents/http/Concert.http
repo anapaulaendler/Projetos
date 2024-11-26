@@ -1,0 +1,19 @@
+@CulturalEvents_HostAddress = http://localhost:5150/api/concerts
+
+### new concert
+POST {{CulturalEvents_HostAddress}}
+Content-Type: application/json
+
+{
+    "Name": "Badabó: World Tour",
+    "ArtistId": "ebdc9a32-c8b6-446a-b604-ece0844c11b3",
+    "Date": "2024-10-19",
+    "Location": "Badabolândia",
+    "Capacity": 300,
+    "MusicGenre": "Rock"
+}
+
+### get concerts
+GET {{CulturalEvents_HostAddress}}
+
+### search for a concert

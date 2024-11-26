@@ -1,0 +1,3 @@
+@CulturalEvents_HostAddress = http://localhost:5150/api/concerts
+
+GET {{CulturalEvents_HostAddress}}
