@@ -9,11 +9,13 @@ public class ConcertService : IConcertService
     private readonly IConcertRepository _concertRepository;
     private readonly ITicketRepository _ticketRepository;
 
-    private ConcertService(IConcertRepository concertRepository, ITicketRepository ticketRepository)
+    public ConcertService(IConcertRepository concertRepository, ITicketRepository ticketRepository)
     {
         _concertRepository = concertRepository;
         _ticketRepository = ticketRepository;
     }
+
+    // lembrar de trocar o construtor das outras filhas
 
     public async Task CreateConcertAsync(Concert concert)
     {

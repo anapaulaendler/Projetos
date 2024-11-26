@@ -1,0 +1,58 @@
+# Ignore build directories
+bin/
+obj/
+
+# Ignore user-specific files for Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# macOS system files
+.DS_Store
+
+# Thumbnails (for Windows or macOS)
+Thumbs.db
+
+# JetBrains Rider/IntelliJ IDEA files
+.idea/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Exclude Visual Studio for Mac
+.vscode/
+
+# Exclude log files
+*.log
+
+# Exclude temporary files
+*.tmp
+*.bak
+*.swp
+
+# Exclude compiled binaries
+*.dll
+*.exe
+*.pdb
+*.cache
+
+# Exclude package files
+*.nupkg
