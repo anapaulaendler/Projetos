@@ -49,7 +49,7 @@ public class TheaterPlayService : ITheaterPlayService
     public async Task<string> GenerateDetailedReportAsync(Guid id)
     {
         var theaterPlay = await _theaterPlayRepository.GetById(id);
-        var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
+        var tickets = await _ticketRepository.Get(t => t.EventId == id);
 
         theaterPlay.GenerateReport(); 
 

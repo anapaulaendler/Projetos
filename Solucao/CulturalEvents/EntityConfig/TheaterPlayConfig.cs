@@ -2,11 +2,11 @@ using CulturalEvents.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-internal class ConcertConfig : IEntityTypeConfiguration<Concert>
+internal class TheaterPlayConfig : IEntityTypeConfiguration<TheaterPlay>
 {
-    public void Configure(EntityTypeBuilder<Concert> builder)
+    public void Configure(EntityTypeBuilder<TheaterPlay> builder)
     {
-        builder.ToTable("Concerts").HasKey(p => p.Id);
+        builder.ToTable("TheaterPlays").HasKey(p => p.Id);
 
         builder.Property(x => x.Id).IsRequired();
         builder.Property(x => x.ArtistId).HasColumnName("ArtistID").IsRequired();
@@ -15,7 +15,7 @@ internal class ConcertConfig : IEntityTypeConfiguration<Concert>
         builder.Property(x => x.Location).HasColumnName("Location").HasMaxLength(200).IsRequired();
         builder.Property(x => x.Capacity).HasColumnName("Capacity").IsRequired();
         builder.Property(x => x.Fee).HasColumnName("Fee").IsRequired();
-        builder.Property(x => x.MusicGenre).HasColumnName("MusicGenre").HasMaxLength(15).IsRequired();
+        builder.Property(x => x.Cast).HasColumnName("Cast").IsRequired();
 
         builder.HasOne(c => c.Artist).WithMany().IsRequired();
     }

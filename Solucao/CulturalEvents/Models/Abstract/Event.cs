@@ -1,6 +1,6 @@
 namespace CulturalEvents.Models;
 
-public abstract class Event : IEntity
+public abstract class Event
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }

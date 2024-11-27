@@ -49,7 +49,7 @@ public class ExhibitionService : IExhibitionService
     public async Task<string> GenerateDetailedReportAsync(Guid id)
     {
         var exhibition = await _exhibitionRepository.GetById(id);
-        var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
+        var tickets = await _ticketRepository.Get(t => t.EventId == id);
 
         exhibition.GenerateReport(); 
 

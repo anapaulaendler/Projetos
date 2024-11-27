@@ -49,7 +49,7 @@ public class ConcertService : IConcertService
     public async Task<string> GenerateDetailedReportAsync(Guid id)
     {
         var concert = await _concertRepository.GetById(id);
-        var tickets = await _ticketRepository.Get(t => t.Event!.Id == id);
+        var tickets = await _ticketRepository.Get(t => t.EventId == id);
 
         concert.GenerateReport(); 
 
