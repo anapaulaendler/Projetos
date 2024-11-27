@@ -1,6 +1,6 @@
 namespace CulturalEvents.Models;
 
-public abstract class Event
+public abstract class Event : IEntity
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
@@ -10,7 +10,6 @@ public abstract class Event
     public required string Location { get; set; }
     public int Capacity { get; set; }
     public decimal Fee { get; set; }
-
     public abstract void CalculateFee();
     public abstract void GenerateReport();
 }
