@@ -3,7 +3,7 @@ namespace CulturalEvents.Models;
 public class Exhibition : Event
 {
     public int Duration { get; set; }
-    public override void CalculateFee()
+    public void CalculateFee()
     {
         if (Artist is null)
         {
@@ -22,7 +22,7 @@ public class Exhibition : Event
     }
 
 
-    public override void GenerateReport()
+    public void GenerateReport()
     {
         if (Artist is null)
         {

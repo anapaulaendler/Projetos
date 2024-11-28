@@ -15,7 +15,7 @@ public class ParticipantController : ControllerBase
         _participantService = participantService;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<Participant> CreateParticipant(Participant participant)
     {
         await _participantService.CreateParticipantAsync(participant);

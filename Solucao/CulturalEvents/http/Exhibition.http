@@ -1,3 +1,39 @@
-@CulturalEvents_HostAddress = http://localhost:5150/api/concerts
+@CulturalEvents_HostAddress = http://localhost:5150/api/exhibitions
+@id = 12a672c9-00d8-40d4-be15-da14b0565ecd
 
+### new exhibition
+POST {{CulturalEvents_HostAddress}}
+Content-Type: application/json
+
+{
+    "Name": "Badabó: Absurdism",
+    "ArtistId": "45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f",
+    "Date": "2024-10-19",
+    "Location": "Badabolândia",
+    "Capacity": 300,
+    "Duration": 5
+}
+
+### get exhibitions
 GET {{CulturalEvents_HostAddress}}
+
+### search for a exhibition
+GET {{CulturalEvents_HostAddress}}/{{id}}
+
+### update a exhibition
+PUT {{CulturalEvents_HostAddress}}/{{id}}
+Content-Type: application/json
+
+  {
+    "duration": 10,
+    "id": "12a672c9-00d8-40d4-be15-da14b0565ecd",
+    "name": "Badabó: Absurdism",
+    "artistId": "45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f",
+    "date": "2024-10-29T00:00:00",
+    "location": "Badabolândia",
+    "capacity": 300,
+    "fee": 4000.0
+  }
+
+### delete exhibition
+DELETE {{CulturalEvents_HostAddress}}/{{id}}

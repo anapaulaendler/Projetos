@@ -11,6 +11,6 @@ namespace CulturalEvents.Repositories
         Task<TEntity> GetById(Guid id);
         Task AddAsync(TEntity entity);
         Task Delete(TEntity entity);
-        Task Update(TEntity entity, Guid id);
+        Task Update(TEntity entity);
     }
 }

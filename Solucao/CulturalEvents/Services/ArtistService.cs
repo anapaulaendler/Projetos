@@ -39,9 +39,16 @@ public class ArtistService : IArtistService
         return artist;
     }
 
-    public async Task<Artist> UpdateArtistAsync(Artist artist, Guid id)
+    public async Task<Artist> UpdateArtistAsync(Artist updatedArtist, Guid id)
     {
-        await _artistRepository.Update(artist, id);
+        var artist = await GetArtistByIdAsync(id);
+
+        artist.Name = updatedArtist.Name;
+        artist.Email = updatedArtist.Email;
+        artist.Speciality = updatedArtist.Speciality;
+
+        await _artistRepository.Update(artist);
+        
         return artist;
     }
 }

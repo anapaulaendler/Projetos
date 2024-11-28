@@ -7,21 +7,28 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
+    public DbSet<Event> Events { get; set; } = null!;
+    
     public DbSet<Concert> Concerts { get; set; } = null!;
     public DbSet<Exhibition> Exhibitions { get; set; } = null!;
     public DbSet<TheaterPlay> TheaterPlays { get; set; } = null!;
 
+
     public DbSet<Artist> Artists { get; set; } = null!;
-    public DbSet<CardPayment> CardPayments { get; set; } = null!;
+    public DbSet<Payment> Payments { get; set; } = null!;
     public DbSet<Participant> Participants { get; set; } = null!;
-    public DbSet<PixPayment> PixPayments { get; set; } = null!;
     public DbSet<Ticket> Tickets { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Ignore<Event>();
+        modelBuilder.Entity<Event>()
+            .HasDiscriminator<string>("event_type")
+            .HasValue<Concert>("concert")
+            .HasValue<Exhibition>("exhibition")
+            .HasValue<TheaterPlay>("theater_play");
+        // modelBuilder.Ignore<Event>();
         //  modelBuilder.Entity<Abstract>().UseTpcMappingStrategy();
 
         // modelBuilder.Entity<Concert>().UseTpcMappingStrategy().ToTable("Concerts");

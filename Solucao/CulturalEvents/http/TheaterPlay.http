@@ -1,39 +1,42 @@
-@CulturalEvents_HostAddress = http://localhost:5150/api/concerts
-@id = a63f07c9-f1b1-4804-9291-9d0ec26d9129
+@CulturalEvents_HostAddress = http://localhost:5150/api/theaterplays
+@id = e11bfa0e-bddf-4333-98f7-f1ef8a95da63
 
-### new concert
+### new theater play
 POST {{CulturalEvents_HostAddress}}
 Content-Type: application/json
 
 {
-    "Name": "Badabó: World Tour",
+    "Name": "Badabó: Absurdism",
     "ArtistId": "45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f",
     "Date": "2024-10-19",
     "Location": "Badabolândia",
     "Capacity": 300,
-    "MusicGenre": "Rock"
+    "Cast": ["a", "b", "c", "d", "e", "f"]
 }
 
-### get concerts
+### get theater plays
 GET {{CulturalEvents_HostAddress}}
 
-### search for a concert
+### search for a theater play
 GET {{CulturalEvents_HostAddress}}/{{id}}
 
-### update a concert
+### update a theater play
 PUT {{CulturalEvents_HostAddress}}/{{id}}
 Content-Type: application/json
 
 {
-  "musicGenre": "Rock",
-  "id": "a63f07c9-f1b1-4804-9291-9d0ec26d9129",
-  "name": "Badabó: World Tour (Pt. 2)",
+  "cast": [
+    "a",
+    "b"
+  ],
+  "id": "e11bfa0e-bddf-4333-98f7-f1ef8a95da63",
+  "name": "Badabó: 100 Years of Solitude",
   "artistId": "45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f",
   "date": "2024-10-19T00:00:00",
   "location": "Badabolândia",
-  "capacity": 500,
-  "fee": 1300.0
+  "capacity": 300,
+  "fee": 2000.0
 }
 
-### delete concert
+### delete theater play
 DELETE {{CulturalEvents_HostAddress}}/{{id}}

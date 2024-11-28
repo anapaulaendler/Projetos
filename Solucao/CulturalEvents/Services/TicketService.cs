@@ -7,14 +7,21 @@ namespace CulturalEvents.Services;
 public class TicketService : ITicketService
 {
     private readonly ITicketRepository _ticketRepository;
+    private readonly IParticipantRepository _participantRepository;
+    private readonly IEventRepository _eventRepository;
 
-    public TicketService(ITicketRepository ticketRepository)
+    public TicketService(ITicketRepository ticketRepository, IParticipantRepository participantRepository, IEventRepository eventRepository)
     {
         _ticketRepository = ticketRepository;
+        _participantRepository = participantRepository;
+        _eventRepository = eventRepository;
     }
 
     public async Task CreateTicketAsync(Ticket ticket)
     {
+        ticket.Event = await _eventRepository.GetById(ticket.EventId);
+        ticket.Participant = await _participantRepository.GetById(ticket.ParticipantId);
+
         await _ticketRepository.AddAsync(ticket);
     }
 

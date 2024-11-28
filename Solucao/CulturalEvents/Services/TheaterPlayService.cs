@@ -35,9 +35,17 @@ public class TheaterPlayService : ITheaterPlayService
         return await _theaterPlayRepository.GetById(id);
     }
 
-    public async Task UpdateTheaterPlayAsync(TheaterPlay theaterPlay, Guid id)
+    public async Task UpdateTheaterPlayAsync(TheaterPlay updatedTheaterPlay, Guid id)
     {
-        await _theaterPlayRepository.Update(theaterPlay, id);
+        var theaterPlay = await GetTheaterPlayByIdAsync(id);
+
+        theaterPlay.Name = updatedTheaterPlay.Name;
+        theaterPlay.Date = updatedTheaterPlay.Date;
+        theaterPlay.Location = updatedTheaterPlay.Location;
+        theaterPlay.Capacity = updatedTheaterPlay.Capacity;
+        theaterPlay.Cast = updatedTheaterPlay.Cast;
+
+        await _theaterPlayRepository.Update(theaterPlay);
     }
 
     public async Task DeleteTheaterPlayAsync(Guid id)

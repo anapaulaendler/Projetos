@@ -35,9 +35,17 @@ public class ExhibitionService : IExhibitionService
         return await _exhibitionRepository.GetById(id);
     }
 
-    public async Task UpdateExhibitionAsync(Exhibition exhibition, Guid id)
+    public async Task UpdateExhibitionAsync(Exhibition updatedExhibition, Guid id)
     {
-        await _exhibitionRepository.Update(exhibition, id);
+        var exhibition = await GetExhibitionByIdAsync(id);
+
+        exhibition.Name = updatedExhibition.Name;
+        exhibition.Date = updatedExhibition.Date;
+        exhibition.Location = updatedExhibition.Location;
+        exhibition.Capacity = updatedExhibition.Capacity;
+        exhibition.Duration = updatedExhibition.Duration;
+
+        await _exhibitionRepository.Update(exhibition);
     }
 
     public async Task DeleteExhibitionAsync(Guid id)

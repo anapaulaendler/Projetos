@@ -1,0 +1,31 @@
+@CulturalEvents_HostAddress = http://localhost:5150/api/participants
+@id = 7d4cedfc-410d-4df2-81c1-8978abddb8aa
+
+POST {{CulturalEvents_HostAddress}}
+Content-Type: application/json
+
+{
+    "Name": "lala",
+    "Cpf": "111",
+    "Email": "lala@gmail.com"
+}
+
+### get participant
+GET {{CulturalEvents_HostAddress}}/{{id}}
+
+### update participant
+PUT {{CulturalEvents_HostAddress}}/{{id}}
+Content-Type: application/json
+
+{
+    "id": "7d4cedfc-410d-4df2-81c1-8978abddb8aa",
+    "Name": "lala",
+    "Cpf": "131",
+    "Email": "lala@gmail.com"
+}
+
+### display details
+GET {{CulturalEvents_HostAddress}}/details/{{id}}
+
+### delete participant
+DELETE {{CulturalEvents_HostAddress}}/{{id}}

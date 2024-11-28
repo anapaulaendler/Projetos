@@ -35,9 +35,16 @@ public class ConcertService : IConcertService
         return await _concertRepository.GetById(id);
     }
 
-    public async Task UpdateConcertAsync(Concert concert, Guid id)
+    public async Task UpdateConcertAsync(Concert updatedConcert, Guid id)
     {
-        await _concertRepository.Update(concert, id);
+        var concert = await GetConcertByIdAsync(id);
+
+        concert.Name = updatedConcert.Name;
+        concert.Date = updatedConcert.Date;
+        concert.Location = updatedConcert.Location;
+        concert.Capacity = updatedConcert.Capacity;
+
+        await _concertRepository.Update(concert);
     }
 
     public async Task DeleteConcertAsync(Guid id)

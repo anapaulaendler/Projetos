@@ -33,8 +33,13 @@ public class ParticipantService : IParticipantService
         return participant;
     }
 
-    public async Task UpdateParticipantAsync(Participant participant, Guid id)
+    public async Task UpdateParticipantAsync(Participant updatedParticipant, Guid id)
     {
-        await _participantRepository.Update(participant, id);
+        var participant = await GetParticipantByIdAsync(id);
+
+        participant.Name = updatedParticipant.Name;
+        participant.Email = updatedParticipant.Email;
+
+        await _participantRepository.Update(participant);
     }
 }

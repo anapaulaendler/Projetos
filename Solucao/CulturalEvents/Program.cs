@@ -22,6 +22,8 @@ builder.Services.AddScoped<IParticipantService, ParticipantService>();
 builder.Services.AddScoped<ITheaterPlayRepository, TheaterPlayRepository>();
 builder.Services.AddScoped<ITheaterPlayService, TheaterPlayService>();
 
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString(nameof(AppDbContext))));

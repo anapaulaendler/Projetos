@@ -4,7 +4,7 @@ public class Concert : Event
 {
     public required string MusicGenre { get; set; }
 
-    public override void CalculateFee()
+    public void CalculateFee()
     {
         if (Artist is null)
         {
@@ -28,7 +28,7 @@ public class Concert : Event
         Fee = baseFee * genreMultiplier;
     }
 
-    public override void GenerateReport()
+    public void GenerateReport()
     {
         if (Artist is null)
         {

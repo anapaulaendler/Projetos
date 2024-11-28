@@ -1,0 +1,21 @@
+@CulturalEvents_HostAddress = http://localhost:5150/api/tickets
+@id = 5599a18b-4e4c-4f9c-afc6-33453136998e
+
+### create ticket
+POST {{CulturalEvents_HostAddress}}
+Content-Type: application/json
+
+{
+    "EventId": "a63f07c9-f1b1-4804-9291-9d0ec26d9129",
+    "ParticipantId": "a69506ea-e912-465f-9b7f-57ad8f638bff",
+    "Price": 20.0
+}
+
+### list all tickets
+GET {{CulturalEvents_HostAddress}}
+
+### get ticket
+GET {{CulturalEvents_HostAddress}}/{{id}}
+
+### delete ticket
+DELETE {{CulturalEvents_HostAddress}}/{{id}}

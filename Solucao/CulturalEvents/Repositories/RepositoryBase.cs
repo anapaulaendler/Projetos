@@ -7,6 +7,7 @@ namespace CulturalEvents.Repositories
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class, IEntity
     {
         public readonly DbSet<TEntity> _dbSet;
+        // com tph, a tabela, por ex, concert n existe
         public readonly AppDbContext _ctx;
 
         public RepositoryBase(AppDbContext appContext)
@@ -53,16 +54,8 @@ namespace CulturalEvents.Repositories
             return entity;
         }
 
-        public async Task Update(TEntity updatedEntity, Guid id)
+        public async Task Update(TEntity entity)
         {
-            var entity = await _dbSet.FindAsync(id);
-
-            if (entity is null)
-            {
-                throw new KeyNotFoundException();
-            }
-            entity = updatedEntity;
-            
             _dbSet.Update(entity);
             await _ctx.SaveChangesAsync();
         }

@@ -15,7 +15,7 @@ public class TicketController : ControllerBase
         _ticketService = ticketService;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<Ticket> CreateTicket(Ticket ticket)
     {
         await _ticketService.CreateTicketAsync(ticket);

@@ -1,5 +1,5 @@
 @CulturalEvents_HostAddress = http://localhost:5150/api/artists
-
+@id = 45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f
 
 POST {{CulturalEvents_HostAddress}}
 Content-Type: application/json
@@ -15,13 +15,14 @@ Content-Type: application/json
 GET {{CulturalEvents_HostAddress}}
 
 ### get artist
-GET {{CulturalEvents_HostAddress}}/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+GET {{CulturalEvents_HostAddress}}/{{id}}
 
 ### update artist
-PUT {{CulturalEvents_HostAddress}}/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+PUT {{CulturalEvents_HostAddress}}/{{id}}
 Content-Type: application/json
 
 {
+    "id": "45f0f0c2-d2f5-48cd-a9d9-72bc4d666c3f",
     "Name": "Badabó",
     "Cpf": "111",
     "Email": "badabo@gmail.com",
@@ -29,7 +30,7 @@ Content-Type: application/json
 }
 
 ### display details
-GET {{CulturalEvents_HostAddress}}/details/acaf0e1c-bd22-4d29-9f22-a0f6f27a0276
+GET {{CulturalEvents_HostAddress}}/details/{{id}}
 
 ### delete artist
-DELETE {{CulturalEvents_HostAddress}}/B95F320F-DF0E-429F-9AC7-08C7EA5C06D0
+DELETE {{CulturalEvents_HostAddress}}/{{id}}

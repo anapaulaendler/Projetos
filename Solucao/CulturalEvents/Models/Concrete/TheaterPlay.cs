@@ -3,7 +3,7 @@ namespace CulturalEvents.Models;
 public class TheaterPlay : Event
 {
     public required ICollection<string> Cast { get; set; }
-    public override void CalculateFee()
+    public void CalculateFee()
     {
         if (Artist is null)
         {
@@ -22,7 +22,7 @@ public class TheaterPlay : Event
     }
 
 
-    public override void GenerateReport()
+    public void GenerateReport()
     {
         if (Artist is null)
         {
