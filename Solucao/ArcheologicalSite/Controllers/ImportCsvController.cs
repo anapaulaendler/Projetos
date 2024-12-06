@@ -31,7 +31,8 @@ namespace ArcheologicalSite.Controllers
             using var artefactsStream = artefactsCsv.OpenReadStream();
 
             await _csvImportService.ProcessPeopleAsync(peopleStream);
-            await _csvImportService.ProcessItemsAsync(fossilsCsv, artefactsCsv);
+            await _csvImportService.ProcessArtefactsAsync(artefactsStream);
+            await _csvImportService.ProcessFossilsAsync(fossilsStream);
 
             return Ok();
         }
