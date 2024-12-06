@@ -8,5 +8,6 @@ namespace ArcheologicalSite.Models
         public required string Name { get; set; }
         public required string Period { get; set; }
         public required string Origin { get; set; }
+        public required string Type { get; set; }
     }
 }

@@ -59,11 +59,6 @@ namespace ArcheologicalSite.Context
             }
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-
         private async Task DisposeTransactionAsync()
         {
             if (_currentTransaction != null)

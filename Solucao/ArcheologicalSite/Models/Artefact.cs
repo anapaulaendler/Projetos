@@ -6,7 +6,7 @@ namespace ArcheologicalSite.Models
         public required string Dimension { get; set; }
         public required string Material { get; set; }
 
-        public Guid ArcheologistId { get; set; }
+        public Guid? ArcheologistId { get; set; }
         public Archeologist? Archeologist { get; set; }
     }
 }

@@ -8,15 +8,14 @@ internal class ArcheologistConfig : IEntityTypeConfiguration<Archeologist>
     {
         builder.ToTable("Archeologists").HasKey(x => x.Id);
 
-        builder.Property(x => x.Id).IsRequired();
-        builder.Property(x => x.EducationId).HasColumnName("EducationId").IsRequired(true);
+        builder.Property(x => x.Id).IsRequired();;
 
-        builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(100).IsRequired(true);
-        builder.Property(x => x.Cpf).HasColumnName("CPF").HasMaxLength(11).IsRequired(true);
-        builder.Property(x => x.BirthDate).HasColumnName("BirthDate").IsRequired(true);
-        builder.Property(x => x.YearsOfExperience).HasColumnName("YearsOfExperience").IsRequired(true);
-        builder.Property(x => x.ProfessionalRegisterId).HasColumnName("ProfessionalRegisterId").IsRequired(true);
+        builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
+        builder.Property(x => x.Cpf).HasColumnName("CPF").IsRequired();
+        builder.Property(x => x.BirthDate).HasColumnName("BirthDate").IsRequired();
+        builder.Property(x => x.ProfessionalRegisterId).HasColumnName("ProfessionalRegisterId").IsRequired();
+        builder.Property(x => x.Profession).HasColumnName("Profession").IsRequired();
 
-        builder.HasOne(x => x.Education).WithOne().IsRequired(true);
+        builder.HasMany(x => x.Artefacts).WithOne(x => x.Archeologist).IsRequired(false);
     }
 }
