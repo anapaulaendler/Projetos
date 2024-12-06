@@ -8,7 +8,7 @@ internal class ArcheologistConfig : IEntityTypeConfiguration<Archeologist>
     {
         builder.ToTable("Archeologists").HasKey(x => x.Id);
 
-        builder.Property(x => x.Id).IsRequired();;
+        builder.Property(x => x.Id).IsRequired();
 
         builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
         builder.Property(x => x.Cpf).HasColumnName("CPF").IsRequired();

@@ -1,14 +1,30 @@
+using ArcheologicalSite.Context;
+using ArcheologicalSite.Repositories;
+using ArcheologicalSite.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddScoped<IUnitOfWork, AppUnitOfWork>();
+
+builder.Services.AddScoped<IArcheologistRepository, ArcheologistRepository>();
+builder.Services.AddScoped<IArcheologistService, ArcheologistService>();
+
+builder.Services.AddScoped<IArtefactRepository, ArtefactRepository>();
+builder.Services.AddScoped<IArtefactService, ArtefactService>();
+
+builder.Services.AddScoped<IFossilRepository, FossilRepository>();
+builder.Services.AddScoped<IFossilService, FossilService>();
+
+builder.Services.AddScoped<IPaleontologistRepository, PaleontologistRepository>();
+builder.Services.AddScoped<IPaleontologistService, PaleontologistService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString(nameof(AppDbContext))));
+builder.Services.AddScoped<ICsvImportService, CsvImportService>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

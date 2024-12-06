@@ -1,4 +1,3 @@
-
 using System.Globalization;
 using ArcheologicalSite.Context;
 using ArcheologicalSite.Models;
@@ -137,7 +136,7 @@ namespace ArcheologicalSite.Services
             {
                 var model = csv.GetRecord<PersonCsvModel>();
 
-                if (model.Profession == "Paleontologist")
+                if (model.Profession.Equals("Paleontologist", StringComparison.OrdinalIgnoreCase))
                 {
                     var paleontologist = new Paleontologist
                     {
@@ -149,7 +148,7 @@ namespace ArcheologicalSite.Services
                     };
                     
                     newPaleontologists.Add(paleontologist);
-                } else if (model.Profession == "Archeologist")
+                } else if (model.Profession.Equals("Archeologist", StringComparison.OrdinalIgnoreCase))
                 {
                     var archeologist = new Archeologist
                     {
