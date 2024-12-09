@@ -15,7 +15,7 @@ namespace ArcheologicalSite.Context
 
         public async Task BeginTransactionAsync()
         {
-            if (_context.Database.CurrentTransaction == null)
+            if (_context.Database.CurrentTransaction is null)
             {
                 var dbConnection = _context.Database.GetDbConnection();
                 if (dbConnection.State == System.Data.ConnectionState.Closed)
@@ -32,7 +32,7 @@ namespace ArcheologicalSite.Context
         {
             try
             {
-                if (_currentTransaction != null)
+                if (_currentTransaction is not null)
                 {
                     await _context.SaveChangesAsync();
                     await _currentTransaction.CommitAsync();
@@ -48,7 +48,7 @@ namespace ArcheologicalSite.Context
         {
             try
             {
-                if (_currentTransaction != null)
+                if (_currentTransaction is not null)
                 {
                     await _currentTransaction.RollbackAsync();
                 }
@@ -59,9 +59,9 @@ namespace ArcheologicalSite.Context
             }
         }
 
-        private async Task DisposeTransactionAsync()
+        public async Task DisposeTransactionAsync()
         {
-            if (_currentTransaction != null)
+            if (_currentTransaction is not null)
             {
                 await _currentTransaction.DisposeAsync();
                 _currentTransaction = null;

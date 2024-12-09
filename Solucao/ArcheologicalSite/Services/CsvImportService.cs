@@ -28,7 +28,7 @@ namespace ArcheologicalSite.Services
             _logger = logger;
         }
 
-        public async Task ProcessArtefactsAsync(Stream artefactsStream)
+        public async Task ProcessArtefactsAsync(string artefactsStream)
         {
             await _uow.BeginTransactionAsync();
 
@@ -69,16 +69,19 @@ namespace ArcheologicalSite.Services
             {
                 await _artefactRepository.AddRangeAsync(newArtefacts);
             }
+
+            await RemoveDuplicateArtefactsAsync();
+
             await _uow.CommitTransactionAsync();
         }
 
-        public async Task ProcessFossilsAsync(Stream fossilsStream)
+        public async Task ProcessFossilsAsync(string fossilsStream)
         {
             await _uow.BeginTransactionAsync();
 
             var newFossils = new List<Fossil>();
 
-            var fossils = await _fossilRepository.Get();
+            List<Fossil> fossils = (List<Fossil>)await _fossilRepository.Get();
             var paleontologists = await _paleontologistRepository.Get();
 
             using var textReader = new StreamReader(fossilsStream);
@@ -113,8 +116,47 @@ namespace ArcheologicalSite.Services
             {
                 await _fossilRepository.AddRangeAsync(newFossils);
             }
+
+            await RemoveDuplicateFossilsAsync();
+
             await _uow.CommitTransactionAsync();
         }
+
+    public async Task RemoveDuplicateFossilsAsync()
+    {
+        var fossils = await _fossilRepository.Get();
+
+        var duplicates = fossils
+            .GroupBy(x => x.Name) 
+            .Where(group => group.Count() > 1) 
+            .SelectMany(group => group.Skip(1)) 
+            .ToList();
+
+        foreach (var duplicate in duplicates)
+        {
+            await _fossilRepository.Delete(duplicate); 
+        }
+
+        await _uow.CommitTransactionAsync();
+    }
+
+    public async Task RemoveDuplicateArtefactsAsync()
+    {
+        var artefacts = await _artefactRepository.Get();
+
+        var duplicates = artefacts
+            .GroupBy(x => x.Name) 
+            .Where(group => group.Count() > 1) 
+            .SelectMany(group => group.Skip(1)) 
+            .ToList();
+
+        foreach (var duplicate in duplicates)
+        {
+            await _artefactRepository.Delete(duplicate); 
+        }
+
+        await _uow.CommitTransactionAsync();
+    }
 
         public async Task ProcessPeopleAsync(Stream stream)
         {

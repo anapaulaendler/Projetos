@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {}
+    "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {
+    "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
+        "projectUniqueName": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
         "projectName": "Library",
-        "projectPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
+        "projectPath": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\Library.csproj",
         "packagesPath": "C:\\Users\\Dev-Headsoft\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\obj\\",
+        "outputPath": "c:\\Users\\Dev-Headsoft\\Documents\\Projetos\\Solucao\\Library\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dev-Headsoft\\AppData\\Roaming\\NuGet\\NuGet.Config"

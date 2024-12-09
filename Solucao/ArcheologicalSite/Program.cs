@@ -19,10 +19,13 @@ builder.Services.AddScoped<IFossilService, FossilService>();
 builder.Services.AddScoped<IPaleontologistRepository, PaleontologistRepository>();
 builder.Services.AddScoped<IPaleontologistService, PaleontologistService>();
 
+builder.Services.AddScoped<ICsvImportService, CsvImportService>();
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString(nameof(AppDbContext))));
-builder.Services.AddScoped<ICsvImportService, CsvImportService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

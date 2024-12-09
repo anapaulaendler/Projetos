@@ -10,6 +10,10 @@ namespace ArcheologicalSite.Context
         {
         }
         
+        public AppDbContext()
+        {
+        }
+        
         public DbSet<Archeologist> Archeologists { get; set; } = null!;
         public DbSet<Artefact> Artefacts { get; set; } = null!;
         public DbSet<Fossil> Fossils { get; set; } = null!;
