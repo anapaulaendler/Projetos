@@ -66,7 +66,7 @@ public class EventService : IEventService
         return getEvent;
     }
 
-    public List<Event> SearchEvents(string location, DateTime? startDate, DateTime? endDate)
+    public async Task<List<Event>> SearchEvents(string location, DateTime? startDate, DateTime? endDate)
     {
         List<Event> eventLocations = _eventRepository.FilterByLocation(location);
         List<Event> events = eventLocations;

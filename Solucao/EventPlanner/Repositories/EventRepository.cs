@@ -1,5 +1,6 @@
 using EventPlanner.Context;
 using EventPlanner.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventPlanner.Repositories;
 
@@ -8,26 +9,26 @@ public class EventRepository : RepositoryBase<Event>, IEventRepository
     public EventRepository(AppDbContext appContext) : base(appContext)
     {
     }
-
-    public List<Event> FilterByLocation(string location)
-    {
-        List<Event> events = _dbSet.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
-
-        return events;
-    }
-
+    
     public List<Event> FilterByLocationAndDate(string location, DateTime startDate, DateTime? endDate)
     {
-        List<Event> events = _dbSet.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+        var events = _dbSet.Where(x => x.Location == location);
         
         if (endDate is not null)
         {
-            events = events.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
+            events = events.Where(x => x.Date >= startDate && x.Date <= endDate);
         } else 
         {
-            events = events.Where(x => x.Date >= startDate).ToList();
+            events = events.Where(x => x.Date >= startDate);
         }
 
-        return events;
+        return events.ToList();
+    }
+
+    public List<Event> FilterByLocation(string location)
+    {
+        var events = _dbSet.Where(x => x.Location == location);
+
+        return events.ToList();
     }
 }

@@ -10,5 +10,5 @@ public interface IEventService
     Task<Event> CreateEvent(EventDTO newEvent);
     Task<Event> UpdateEvent(Guid id, EventDTO updatedEvent);
     Task DeleteEvent(Guid id);
-    List<Event> SearchEvents (string location, DateTime? startDate, DateTime? endDate);
+    Task<List<Event>> SearchEvents (string location, DateTime? startDate, DateTime? endDate);
 }

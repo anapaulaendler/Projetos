@@ -41,7 +41,7 @@ public class EventController : ControllerBase
     {
         try
         {
-            var eventFound = _eventService.SearchEvents(location, startDate, endDate);
+            var eventFound = await _eventService.SearchEvents(location, startDate, endDate);
             return Ok(eventFound);
         }
         catch (KeyNotFoundException)
