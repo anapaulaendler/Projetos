@@ -36,6 +36,20 @@ public class EventController : ControllerBase
         }
     }
 
+    [HttpGet("{location}/{startDate}/{endDate}")]
+    public async Task<IActionResult> SearchEvent(string location, DateTime? startDate, DateTime? endDate)
+    {
+        try
+        {
+            var eventFound = _eventService.SearchEvents(location, startDate, endDate);
+            return Ok(eventFound);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+    }
+
     [HttpGet]
     public async Task<List<Event>> GetEvents()
     {
