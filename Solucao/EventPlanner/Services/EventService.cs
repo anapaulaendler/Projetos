@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using EventPlanner.Context;
 using EventPlanner.Dtos;
+using EventPlanner.Extensions;
 using EventPlanner.Models;
 using EventPlanner.Repositories;
 
@@ -65,9 +66,17 @@ public class EventService : IEventService
         return getEvent;
     }
 
-    public Task<List<Event>> SearchEvents(string location, DateTime? startDate, DateTime? endDate)
+    public List<Event> SearchEvents(string location, DateTime? startDate, DateTime? endDate)
     {
-        throw new NotImplementedException();
+        List<Event> eventLocations = _eventRepository.FilterByLocation(location);
+        List<Event> events = eventLocations;
+
+        if (startDate is not null)
+        {
+            events = _eventRepository.FilterByLocationAndDate(location, (DateTime)startDate, endDate);
+        } 
+
+        return events;
     }
 
     public async Task<Event> UpdateEvent(Guid id, EventDTO updatedEvent)

@@ -1,5 +1,6 @@
 using EventPlanner.Context;
 using EventPlanner.Dtos;
+using EventPlanner.Extensions;
 using EventPlanner.Models;
 using EventPlanner.Repositories;
 
@@ -30,10 +31,12 @@ public class TicketService : ITicketService
             Id = ticketDto.Id,
             EventId = ticketDto.EventId,
             AtendeeName = ticketDto.AtendeeName,
-            PricePaid = ticketDto.PricePaid,
+            PricePaid = ticketEvent.Price,
             IsEarlyBird = ticketDto.IsEarlyBird,
             Event = ticketEvent
         };
+
+        ticket.ApplyEarlyBirdDiscount();
 
         await _ticketRepository.AddAsync(ticket);
         await _uow.CommitTransactionAsync();
@@ -54,12 +57,6 @@ public class TicketService : ITicketService
     {
         List<Ticket> tickets = await _ticketRepository.Get();
         List<Ticket> eventTickets = tickets.Where(x => x.EventId == id).ToList();
-
-        // if (tickets is null || tickets.Count() < 1)
-        // {
-        //     _logger.LogInformation("Erro!");
-        // }
-
         return eventTickets;
     }
 
