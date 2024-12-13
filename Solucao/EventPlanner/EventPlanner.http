@@ -1,6 +1,4 @@
 @EventPlanner_HostAddress = http://localhost:5149
 
-GET {{EventPlanner_HostAddress}}/weatherforecast/
-Accept: application/json
+GET http://localhost:5149/ticket/event/a92c8435-9148-4b99-8c23-35a43a96a5d8
 
-###

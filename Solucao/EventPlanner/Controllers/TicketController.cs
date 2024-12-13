@@ -24,18 +24,12 @@ public class TicketController : ControllerBase
         return await _ticketService.CreateTicket(ticketDTO);
     }
 
-    [HttpGet("event/{id}")]
-    public async Task<IActionResult> GetTicketsByEventId(Guid eventId)
+    [HttpGet("event/{eventId}")]
+    public async Task<IActionResult> GetTicketsByEventId([FromRoute] Guid eventId)
     {
         try
         {
             List<Ticket> tickets = await _ticketService.GetTicketsByEventIdAsync(eventId);
-
-            // if (tickets is null || tickets.Count() < 1)
-            // {
-            //     _logger.LogInformation("Erro!");
-            // }
-
             return Ok(tickets);
         }
         catch (KeyNotFoundException)

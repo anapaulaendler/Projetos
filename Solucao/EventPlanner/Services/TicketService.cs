@@ -50,10 +50,10 @@ public class TicketService : ITicketService
         await _uow.CommitTransactionAsync();
     }
 
-    public async Task<List<Ticket>> GetTicketsByEventIdAsync(Guid eventId)
+    public async Task<List<Ticket>> GetTicketsByEventIdAsync(Guid id)
     {
         List<Ticket> tickets = await _ticketRepository.Get();
-        List<Ticket> eventTickets = tickets.Where(x => x.EventId == eventId).ToList();
+        List<Ticket> eventTickets = tickets.Where(x => x.EventId == id).ToList();
 
         // if (tickets is null || tickets.Count() < 1)
         // {
