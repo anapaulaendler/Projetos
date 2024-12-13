@@ -19,7 +19,7 @@ public class EventService : IEventService
         _organizerRepository = organizerRepository;
     }
 
-    public async Task CreateEvent(EventDTO newEvent)
+    public async Task<Event> CreateEvent(EventDTO newEvent)
     {
         await _uow.BeginTransactionAsync();
         var organizer = await _organizerRepository.GetById(newEvent.OrganizerId);
@@ -40,6 +40,8 @@ public class EventService : IEventService
 
         await _eventRepository.AddAsync(createEvent);
         await _uow.CommitTransactionAsync();
+
+        return createEvent;
     }
 
     public async Task DeleteEvent(Guid id)
@@ -80,8 +82,7 @@ public class EventService : IEventService
         }
 
         var organizer = await _organizerRepository.GetById(updatedEvent.OrganizerId);
-
-        currentEvent.Id = updatedEvent.Id;
+        
         currentEvent.OrganizerId = updatedEvent.OrganizerId;
         currentEvent.Name = updatedEvent.Name;
         currentEvent.Description = updatedEvent.Description;

@@ -10,15 +10,17 @@ public class TicketService : ITicketService
     private readonly ITicketRepository _ticketRepository;
     private readonly IEventRepository _eventRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ILogger<TicketService> _logger;
 
-    public TicketService(ITicketRepository ticketRepository, IUnitOfWork uow, IEventRepository eventRepository)
+    public TicketService(ITicketRepository ticketRepository, IUnitOfWork uow, IEventRepository eventRepository, ILogger<TicketService> logger)
     {
         _ticketRepository = ticketRepository;
         _uow = uow;
         _eventRepository = eventRepository;
+        _logger = logger;
     }
 
-    public async Task CreateTicket(TicketDTO ticketDto)
+    public async Task<Ticket> CreateTicket(TicketDTO ticketDto)
     {
         await _uow.BeginTransactionAsync();
         var ticketEvent = await _eventRepository.GetById(ticketDto.EventId);
@@ -35,6 +37,8 @@ public class TicketService : ITicketService
 
         await _ticketRepository.AddAsync(ticket);
         await _uow.CommitTransactionAsync();
+
+        return ticket;
     }
 
     public async Task DeleteTicket(Guid id)
@@ -46,12 +50,18 @@ public class TicketService : ITicketService
         await _uow.CommitTransactionAsync();
     }
 
-    // public Task<List<Ticket>> GetAllTickets()
-    // {
-    //     var tickets = _ticketRepository.Get();
-    //     return tickets;
-    // }
-    // refazer, mas por evento
+    public async Task<List<Ticket>> GetTicketsByEventIdAsync(Guid eventId)
+    {
+        List<Ticket> tickets = await _ticketRepository.Get();
+        List<Ticket> eventTickets = tickets.Where(x => x.EventId == eventId).ToList();
+
+        // if (tickets is null || tickets.Count() < 1)
+        // {
+        //     _logger.LogInformation("Erro!");
+        // }
+
+        return eventTickets;
+    }
 
     public async Task<Ticket> GetTicketById(Guid id)
     {

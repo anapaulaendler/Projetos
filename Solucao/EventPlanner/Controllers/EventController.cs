@@ -16,11 +16,49 @@ public class EventController : ControllerBase
         _eventService = eventService;
     }
 
-    // [HttpPost]
-    // public async Task<Event> CreateEvent(EventDTO eventDTO)
-    // {
-    //     await _eventService.CreateEvent(eventDTO);
+    [HttpPost]
+    public async Task<Event> CreateEvent(EventDTO eventDTO)
+    {
+        return await _eventService.CreateEvent(eventDTO);
+    }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetEventById(Guid id)
+    {
+        try
+        {
+            var eventFound = await _eventService.GetEventById(id);
+            return Ok(eventFound);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+    }
 
-    // }
+    [HttpGet]
+    public async Task<List<Event>> GetEvents()
+    {
+        return await _eventService.GetAllEvents();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<Event> EditEvent(Guid id, EventDTO eventDTO)
+    {
+        return await _eventService.UpdateEvent(id, eventDTO);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEvent(Guid id)
+    {
+        try
+        {
+            await _eventService.DeleteEvent(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+    }
 }
