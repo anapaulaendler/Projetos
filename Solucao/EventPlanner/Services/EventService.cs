@@ -35,7 +35,6 @@ public class EventService : IEventService
             Location = newEvent.Location,
             Price = newEvent.Price,
             MaxAttendees = newEvent.MaxAttendees,
-            CurrentAttendees = newEvent.CurrentAttendees,
             Organizer = organizer
         };
 
@@ -99,7 +98,6 @@ public class EventService : IEventService
         currentEvent.Location = updatedEvent.Location;
         currentEvent.Price = updatedEvent.Price;
         currentEvent.MaxAttendees = updatedEvent.MaxAttendees;
-        currentEvent.CurrentAttendees = updatedEvent.CurrentAttendees;
         currentEvent.Organizer = organizer;
 
         await _eventRepository.Update(currentEvent);

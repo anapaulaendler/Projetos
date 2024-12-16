@@ -10,5 +10,5 @@ public class EventDTO
     public required string Location { get; set; }
     public decimal Price { get; set; }
     public int MaxAttendees { get; set; }
-    public int CurrentAttendees { get; set; } // n de tickets
+    // public int CurrentAttendees { get; set; } // n de tickets
 }

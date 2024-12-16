@@ -25,6 +25,7 @@ public class TicketService : ITicketService
     {
         await _uow.BeginTransactionAsync();
         var ticketEvent = await _eventRepository.GetById(ticketDto.EventId);
+        ticketEvent.CurrentAttendees++;
 
         var ticket = new Ticket
         {
@@ -38,6 +39,7 @@ public class TicketService : ITicketService
 
         ticket.ApplyEarlyBirdDiscount();
 
+        await _eventRepository.Update(ticketEvent);
         await _ticketRepository.AddAsync(ticket);
         await _uow.CommitTransactionAsync();
 
