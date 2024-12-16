@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using EventPlanner.Context;
 using EventPlanner.Dtos;
-using EventPlanner.Extensions;
 using EventPlanner.Models;
 using EventPlanner.Repositories;
 

@@ -11,4 +11,12 @@ public class Ticket : IEntity
     public bool IsEarlyBird { get; set; }
 
     public required Event Event { get; set; }
+
+    public void ApplyEarlyBirdDiscount()
+    {
+        if (IsEarlyBird)
+        {
+            PricePaid = PricePaid * 0.8m;
+        } 
+    }
 }

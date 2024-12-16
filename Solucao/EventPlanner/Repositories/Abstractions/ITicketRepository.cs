@@ -4,5 +4,5 @@ namespace EventPlanner.Repositories;
 
 public interface ITicketRepository : IRepositoryBase<Ticket>
 {
-    // Task<List<Ticket>> GetTicketsByEventId(Guid eventId);
+    Task<List<Ticket>> GetTicketsByEventId(Guid eventId);
 }

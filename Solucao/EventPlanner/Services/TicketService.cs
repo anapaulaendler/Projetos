@@ -1,6 +1,5 @@
 using EventPlanner.Context;
 using EventPlanner.Dtos;
-using EventPlanner.Extensions;
 using EventPlanner.Models;
 using EventPlanner.Repositories;
 
@@ -57,9 +56,8 @@ public class TicketService : ITicketService
 
     public async Task<List<Ticket>> GetTicketsByEventIdAsync(Guid id)
     {
-        List<Ticket> tickets = await _ticketRepository.Get();
-        List<Ticket> eventTickets = tickets.Where(x => x.EventId == id).ToList();
-        return eventTickets;
+        List<Ticket> tickets = await _ticketRepository.GetTicketsByEventId(id);
+        return tickets;
     }
 
     public async Task<Ticket> GetTicketById(Guid id)

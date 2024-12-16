@@ -10,15 +10,15 @@ public class TicketRepository : RepositoryBase<Ticket>, ITicketRepository
     {
     }
 
-    // public async Task<List<Ticket>> GetTicketsByEventId(Guid eventId)
-    // {
-    //     List<Ticket> query = await _dbSet.Where(x => x.EventId == eventId).ToListAsync();
+    public async Task<List<Ticket>> GetTicketsByEventId(Guid eventId)
+    {
+        List<Ticket> query = await _dbSet.Where(x => x.EventId == eventId).ToListAsync();
 
-    //     if (query is null || query.Count() < 1)
-    //     {
-    //         throw new Exception();
-    //     }
+        if (query is null || query.Count() < 1)
+        {
+            throw new Exception();
+        }
 
-    //     return query;
-    // }
+        return query;
+    }
 }
